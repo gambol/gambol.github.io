@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>比特币 - gambol自己的思考</title>
+
+    <link rel="canonical" href="http://gambol.github.io/2015/09/10/bitcoin/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">gambol's blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#经济" title="经济">经济</a>
+                        
+                        <a class="tag" href="/tags/#投资" title="投资">投资</a>
+                        
+                    </div>
+                    <h1>比特币</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by gambol on September 10, 2015</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h1 id="section">比特币</h1>
+
+<p>标签（空格分隔）： 经济 电子货币 投资</p>
+
+<hr />
+
+<h1 id="section-1">比特币是什么? 解决什么问题</h1>
+<p>比特币是一种数字货币，可以在用户之间进行交易，出现于2009年，据说总量只有2100w 货币的本质是用来交易，是一般等价物。只要大家愿意相信这个物品的价值，那他就可以成为货币。</p>
+
+<p>白话一点说，比特币的出现是这样的， 突然有一天，上帝说，我这里有100w个贝壳，每个人都来我这里领吧，先到先得， 你们以后就用我给你们的备课进行交易哦。 A从上帝手中领了100个贝壳回家，B领了20个回家。
+每发出一个贝壳， 上帝就在账本里记录了一笔.</p>
+
+<ul>
+  <li>2016-1-19， A领了100个贝壳</li>
+  <li>2016-1-20， B领了20个贝壳</li>
+</ul>
+
+<p>于是A和B就用这些贝壳进行交易。 有一天，A饿了，用5个贝壳跟B换了一斤大米。 于是上帝记录了一笔
+ - 2016-1-21, A的贝壳数减少5个，A有95个贝壳
+ - 2016-1-21, B的贝壳数增加5个，B有25个贝壳</p>
+
+<p>这种日子过了一阵子之后，上帝累了，不想记账本，于是他把账本复制了很多份，发给了每一个居民。上帝告诉居民说，以后你们和其他交易后，自己大喊一声，告诉别的所有人。 当你们听见了别人大喊一声时，也记录下来这个交易。 和别人交易时，先看看自己的账本，看对方有没有钱就行了。  —– 于是， 去中心化的货币就出现了。</p>
+
+<p>有过了一阵子，居民发现说，每天带着贝壳上街太麻烦了，反正账本里有所有人的贝壳数目，交易之前看看账本就好了。于是，比特币出现了。</p>
+
+<p>比特币解决的问题主要是
+1. 去中心化。 不依赖于某一个组织，而是由全体比特币持有者来决定
+2. 利润上这种去中心化的体系，能提高效率。 牛逼的电子货币体系，使用起来，比银行转账方便。然而我在使用过程中发现，每笔交易延迟约5-10分钟。（这也是为什么莱特币出来的原因）
+3. 总量恒定，可以有效防止上帝心血来潮增加货币数量。</p>
+
+<hr />
+
+<h1 id="section-2">比特币有什么对手, 各有什么优缺点</h1>
+<p>|  一般等价物 | 优点 | 缺点|
+| — | – | —|
+| 黄金 |  天生的一般等价物，人类的基因缺陷 | 太重了，不方便随身携带。交易困难 |
+| 纸币 / 银行卡 | 解决黄金“太重“的问题 |  政府来做担保。如果政府不靠谱，纸币、银行卡就是废 |
+| 比特币 |  比纸币高级一点，去中心化，符合互联网特征。 |  缺乏信用担保，不是每个人都信它。 |
+| 莱特币 |  比比特币快，价钱更便宜  | 比比特币信用更差  |</p>
+
+<hr />
+
+<h1 id="section-3">比特币有什么关键的技术吗?</h1>
+
+<p>比特币的设计者（中本聪）简直是一个天才（耶稣？）。一个很简单的事实是，他一个人设计出来的比特币席卷了全球，但是全世界的人却不知道他本人是谁。 比特币的源代码完全公开，现在仍然没有人发现比特币体系的漏洞。 关键的技术包括</p>
+
+<h2 id="section-4">区块 &amp;&amp; 区块链</h2>
+<p>整个体系里最重要的技术，就是区块链。</p>
+
+<p>区块链（block chain）类似于比特币系统中的账本。区块链是一群分散的客户端节点，并由所有参与者组成的分布式数据库，是对所有比特币交易历史的记录[16]。</p>
+
+<p>首先介绍一个概念，什么是区块。一段时间内的交易打成的一个包称为区块。区块依次链接到上一个区块，形成区块链。区块按照顺序排列。</p>
+
+<p><img src="http://static.zybuluo.com/gambol/o0qu4y66hcbhsgkszjoobrnq/f0897491c2069e307e0abcaa58e6808b_b%20%281%29.png" alt="f0897491c2069e307e0abcaa58e6808b_b (1).png-35.5kB" /></p>
+
+<p>每当有用户产生交易后，用p2p的技术，通知全世界所有的block chain里写上这条记录。譬如，A有区块1-20，同时A发现B最大区块是15，于是A就会把16-20的区块同步给B</p>
+
+<h2 id="section-5">挖矿</h2>
+<p>比特币是一个p2p的世界。为了鼓励有更多的人保持在线，维护“账本”，中本聪设计了“挖矿”的功能。
+只要谁打包交易信息，生成了一个区块，谁就能得到一定的比特币作为奖励。— 这就是挖矿</p>
+
+<p>因为有很明显的奖励机制（2016年初，每个比特币价值是2500 rmb，目前生成一个区块，大概奖励15个比特币），因此有大量的节点想来生成区块。为了保证区块的唯一性，比特币决定：最先生成符合比特币规则的区块就能获得这个区块的打包权。 规则大概是：SHA-256一次，如果生成的字符串里，从第一位开始，如果有足够多个连续的0，那么就OK拉。 当某个节点生成了一个区块，那么这个节点赶快发消息通知所有节点，区块已经生成。</p>
+
+<hr />
+
+<h1 id="section-6">比特币前景怎么样</h1>
+<p>这部分内容是个人想的，不代表权威。 
+## 2016-1-21版本
+比特币的优势很明显： 
+1. 设计者是个天才，并且这个天才有很多的拥护者
+2. 数字化货币是历史的趋势，符合互联网的精神
+3. 在虚拟货币里，比特币目前信誉还不错</p>
+
+<p>比特币相对来说劣势包括：
+1. 没有信用人给做担保，所以目前人们还有担心。
+2. 比特币的封闭性（只有2100w个比特币），很适合庄家炒作。譬如，如果现在有人买了50%的比特币，社会上流通的比特币会变少，于是比特币就更加值钱，庄家手头的比特币也得到了增值。
+3. 政府（或者既得利益者）的反抗。去中心化之后，银行和政府收到的冲击最大。
+4. 后来者心里不平衡。 09年早期时，随便是个人，就有几万个比特币。到现在，几万个比特币价值几千万 rmb。 又给了整个社会一次财富不平均的机会</p>
+
+<p>总体来说，目前比特币还在观望中，可以少量的投资。对于我来说，如果16年年底慢慢长到了5k rmb /btc，或者16年之内，由于政府势力造成比特币跌到 现在的1/3（每个比特币 800 rmb）, 可能可以入手。</p>
+
+<h2 id="section-7">2016-1-24</h2>
+
+<p><strong>另外，需要持续关注其他形式的货币，尤其是某些政府（或者较权威组织）参与的其他形式的货币。很可能是一次新的变革</strong></p>
+
+<h1 id="section-8">参考文章</h1>
+<ul>
+  <li>https://www.zhihu.com/question/22076666</li>
+  <li>https://blockchain.info/wallet/new wdb1</li>
+</ul>
+
+<p>我的收款吗： 17BmdGmuiwTDR815S78pzFTuiSEKmUxjXF</p>
+
+
+
+                <hr>
+
+                
+
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2015/09/10/lambda/" data-toggle="tooltip" data-placement="top" title="JDK8 lambda表达式使用">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2015/10/01/hive/" data-toggle="tooltip" data-placement="top" title="HIVE原来介绍">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+
+                
+
+                
+
+            </div>
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#读书笔记" title="读书笔记" rel="3">
+                                    读书笔记
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="2">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#技术" title="技术" rel="5">
+                                    技术
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#经济" title="经济" rel="2">
+                                    经济
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#投资" title="投资" rel="2">
+                                    投资
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://huangxuan.me">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/gambol85">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/happyzzb">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gambol">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; gambol's blog 2016
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+        hljs.initHighlightingOnLoad();
+    })
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

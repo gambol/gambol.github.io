@@ -1,0 +1,175 @@
+---
+layout:     post
+title:      "JDK8 lambda表达式使用"
+subtitle:   " lambda是懒人的夫妻"
+date:       2015-09-10 12:00:00
+author:     "gambol"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - JAVA
+    - 技术
+---
+
+
+# JDK 8 lambda
+
+---
+
+## 目的 && 面向群体 ##
+
+## 引子 ##
+介绍回调函数的写法
+
+## lambda存在的原因 ##
+让程序员更懒
+
+## lambda介绍
+### lambda的组成
+
+    (x, y) -> x+y
+
+
+    () -> 42
+    (String x) -> System.out.println("i am " + x);
+    
+    (int k) -> { 
+        int x = k * 4; 
+        return x;
+    }
+
+包括3个部分
+
+1. 输入
+2. -> 
+4. 函数体
+
+###  目标对象
+
+    Callable<String> a = () -> "xxx";
+    Runnable k = () -> {System.out.println("xxxx");}
+    
+编译器负责推导lambda表达式的类型。它利用lambda表达式所在上下文所期待的类型进行推导，这个被期待的类型被称为目标类型.条件包括
+
+1. T是一个函数式接口
+2. lambda表达式的参数和T的方法参数在数量和类型上一一对应
+3. lambda表达式的返回值和T的方法返回值相兼容（Compatible）
+4. lambda表达式内所抛出的异常和T的方法throws类型相兼容
+
+注意：泛型方法调用和“菱形”构造器调用也通过目标类型来进行类型推导
+
+### 函数式接口
+看Callable , Runnable的共性。 总结什么是函数式接口
+1. 只拥有一个方法
+2. 编译器自动判断这个接口是否是函数式接口
+
+    @FunctionalInterface
+    interface Teacher {
+        void teach();
+    }
+    
+FunctionalInterface注解不是必须得。（类似于 Override）
+
+优点: 
+可以重用现有的类库
+1. java.util.Comparator
+
+新增一部分常用的类库
+1. Predicate<T>——接收T对象并返回boolean
+2. Consumer<T>——接收T对象，不返回值
+3. Function<T, R>——接收T对象，返回R对象
+4. Supplier<T>——提供T对象（例如工厂），不接收值
+5. UnaryOperator<T>——接收T对象，返回T对象
+6. BinaryOperator<T>——接收两个T对象，返回T对象
+
+    Predicate<String> startsWithK = s -> s.substring(4).startsWith("k");
+    
+    Supplier<Boolean> x = () -> true;
+    
+    Function<Integer, Integer> tenTimes = (z) -> {
+        return z * 10;
+    };
+
+缺点
+让现有的类库变复杂了
+譬如 Comparator.java 
+
+#### 默认方法
+关键字： default
+
+    @FunctionalInterface
+    interface Teacher {
+        void teach();
+        
+        default boolean ask (String name) {
+            System.out.println(name + " 你来回答一下这个问题");
+        }
+    }
+    
+#### 静态方法
+
+      @FunctionalInterface
+        interface Teacher {
+            void teach();
+            
+            default boolean ask (String name) {
+                System.out.println(name + " 你来回答一下这个问题");
+            }
+            
+            static void build(List<String> students) {
+    
+            }
+        }
+    
+#### 默认方法的顺序
+当两个独立的默认方法相冲突或是默认方法和抽象方法相冲突时会产生编译错误。这时程序员需要显式覆盖超类方法。一般来说我们会定义一个默认方法，然后在其中显式选择超类方法：
+
+    interface Teacher implements Artist, Doctor { 
+        default void work() { 
+            Artist.super.work(); 
+        } 
+    }
+
+## 综合实例一
+
+        List<Person> personList = new ArrayList<>();
+        personList.add(new Person("Virat", "Kohli"));
+        personList.add(new Person("Arun", "Kumar"));
+        personList.add(new Person("Rajesh", "Mohan"));
+        personList.add(new Person("Rahul", "Dravid"));
+
+        // 在JDK8之前，使用匿名函数解决这个问题
+        Collections.sort(personList, new Comparator<Person>() {
+            public int compare(Person p1, Person p2) {
+                return p1.firstName.compareTo(p2.firstName);
+            }
+        });
+
+        // JDK8 之后，可以用lambda表达式
+        Collections.sort(personList, (Person p1, Person p2) -> p1.firstName.compareTo(p2.firstName));
+        
+        // 省掉一部分可以由编译器推导出来的类型
+        Collections.sort(personList, (p1, p2) -> p1.firstName.compareTo(p2.firstName));
+
+        // 可以用静态方法
+        Collections.sort(personList, Comparator.comparing(p -> p.firstName));
+        
+### 方法引用
+方法引用也应看作是一个 Lambda 表达式，所以它也需要一个明确的目标类型充当功能性接口的实例。文档里的说法是：避免了 Lambda 写复杂了可读性的问题，也使得逻辑更清晰。 
+
+譬如，上面的语句可以进一步简写
+
+    Collections.sort(personList, Comparator.comparing(Person::getFirstName));
+    
+方法引用有更明确的语义——如果我们想要调用的方法拥有一个名字，我们就可以通过它的名字直接调用它。
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,50 @@
+---
+layout:     post
+title:      "原油投资"
+#subtitle:   " \"分布式锁\""
+date:       2016-01-24 12:00:00
+author:     "gambol"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - 投资
+    - 经济
+---
+
+
+# 原油投资
+
+标签（空格分隔）： 经济 投资 原油
+
+---
+
+# 原油价格趋势
+从14年7月份最高的107块，2015年1月时，跌倒了47usd 每桶。2015年16月涨到了一个高点，60块。 2016年1月份跌倒了现在的32块。
+
+![屏幕快照 2016-01-24 下午10.10.35.png-91.9kB][1]
+
+# 原油价格下跌的原因
+原油术语寡头垄断市场结构。控制价格的主要原因不是市场供需，而是供应商（opec）的主观意愿。猜测opec借石油降价打击美国或者其他国家的石油产业。
+
+----
+
+# 原油是否有投资价值
+长远来看，能源是稀缺品，预计在核能广泛民用之前，石油是最靠谱的能量来源。32一桶的价格绝对是低估。
+如果是不急用的钱，做长期投资，目前这个价格风险不大。 
+
+
+------
+
+# 如何投资
+1. 直接买入原油期货、期权等衍生品
+2. 买etf。 不带杠杆的有：石油指数ETF-美国(USO) ，  United States Brent Oil ETF(BNO)  。 带杠杆的有$VelocityShares 3x Long Crude Oil ETN(UWTI)。
+3. 买俄罗斯股票或者俄股etf， 譬如俄罗斯ETF-Market Vectors(RSX)，   Qiwi(QIWI) ， Yandex(YNDX)  ， XDB俄罗斯(03027)。 不过存在一定的政策风险。
+4. 没有ib账号的，可以买入工行纸原油。 缺点是，点差大
+
+-----
+# 参考文献
+1. ib 交易原油期货的方法：http://xueqiu.com/4586203773/30270387
+2. http://xueqiu.com/S/UCO
+3. 原油趋势： http://finance.sina.com.cn/futures/quotes/CL.shtml
+
+
+  [1]: http://static.zybuluo.com/gambol/l8p5j3wqxsq91hopp6914c14/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-01-24%20%E4%B8%8B%E5%8D%8810.10.35.png

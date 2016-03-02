@@ -1,0 +1,61 @@
+---
+layout:     post
+title:      "HIVE原来介绍"
+#subtitle:   " \"分布式锁\""
+date:       2015-10-01 12:00:00
+author:     "gambol"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - 大数据
+   
+---
+
+# hive
+
+标签（空格分隔）： 技术 hive 大数据
+
+---
+
+# HIVE是什么
+基于hadoop的查询工具,方便把结构的数据文件序列化成一张数据库表. 允许开发人员把sql语句转成MapReduce任务运行.
+
+# 和HIVE类似的东西是什么,各有什么优缺点
+|  名字 | 优点 |  缺点  | 适用场景 |
+| --------| -----| -----| --|
+| hive |  和hadoop原生集成 | 慢,性能低  |  绝大部分场景 |
+| Cloudera Impala| 不用MapReduce进行查询, 适用自己的守护进程| 需要自己的特定的文件格式,还需要Imala守护进程 | 需要更快查询|
+|Presto | 和Impala类似 | 除了Impala的缺点之外.还多一点:没有大公司支持| 既要速度, 而且自己够牛逼|
+| Shark| 构建在spark上, 是hive的扩展. 目的是不需要mapreduce,在自己的节点上运算| 暂时不成熟| 目前不成熟|
+| Apache Phoenix |  基于hbase的搜索引擎 |  |  用了hbase,就可以用它.|
+
+# HIVE是怎么做的?
+## 先看具体组件
+
+![此处输入图片的描述][1]
+
+核心是MetaStore组件. 存储hive的元数据, 提供原始meta服务
+
+具体的运行步骤
+![此处输入图片的描述][2]
+
+  [1]: http://ww4.sinaimg.cn/large/56d8760agw1ezc4yts2haj20k50mzdhx.jpg
+  [2]: http://ww4.sinaimg.cn/large/56d8760agw1ezc5jyjjkbj21160j841f.jpg
+  
+## hive主要的数据结构
+
+### Database
+相当于数据库的命名空间
+
+### table
+分成两部分数据, 数据文件(存在hdfs里, 在hdfs上, 一个table就是一个文件夹)和元数据(存在关系数据库里)
+
+### partition
+一个partition就是类似于存在一个子目录里.分区列不是表里的某个字段，而是独立的列. 这个字段主要目的是加快分区的查询速度.
+
+### bucket
+table和partition都是目录级别的拆分数据，bucket则是对数据源数据文件本身来拆分数据。使用桶的表会将源数据文件按一定规律拆分成多个文件，要使用bucket
+貌似没啥用
+
+  
+# 参考文献
+http://www.cnblogs.com/sharpxiajun/archive/2013/06/02/3114180.html
