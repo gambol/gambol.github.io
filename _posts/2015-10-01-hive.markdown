@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "HIVE原来介绍"
+title:      "HIVE原理介绍"
 #subtitle:   " \"分布式锁\""
 date:       2015-10-01 12:00:00
 author:     "gambol"
@@ -11,8 +11,6 @@ tags:
 ---
 
 # hive
-
-标签（空格分隔）： 技术 hive 大数据
 
 ---
 

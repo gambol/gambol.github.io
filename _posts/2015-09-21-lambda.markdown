@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "JDK8 lambda表达式使用"
-subtitle:   " lambda是懒人的夫妻"
+subtitle:   " lambda是懒人的福利"
 date:       2015-09-10 12:00:00
 author:     "gambol"
 header-img: "img/post-bg-2015.jpg"
