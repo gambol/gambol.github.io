@@ -1,25 +1,13 @@
 ﻿---
 layout:     post
-title:      "硅谷禁书读书笔记"
-subtitle:   " \"励志书\""
-date:       2015-01-06 12:00:00
+title:      "JAVA编程指导"
+subtitle:   " 如何写一个好的java代码"
+date:       2015-08-04 12:00:00
 author:     "gambol"
 header-img: "img/post-bg-2015.jpg"
 tags:
-    - 读书笔记
+    - JAVA
 ---
-
-
-#---
-#layout:     post
-#title:      "JAVA编程指导"
-#subtitle:   " 如何写一个好的java代码"
-#date:       2015-08-04 12:00:00
-#author:     "gambol"
-#header-img: "img/post-bg-2015.jpg"
-#tags:
-#    - JAVA
-#---
 
 
 # java编程指导
