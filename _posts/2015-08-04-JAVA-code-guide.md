@@ -1,14 +1,13 @@
 ﻿---
 layout:     post
 title:      "JAVA编程指导"
-#subtitle:   " \"分布式锁\""
 date:       2015-08-04 12:00:00
 author:     "gambol"
 header-img: "img/post-bg-2015.jpg"
 tags:
     - JAVA
-
 ---
+
 
 # JAVA编程指导
 
