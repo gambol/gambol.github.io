@@ -1,6 +1,7 @@
 ﻿---
 layout:     post
-title:      "JAVA编程指导"
+title:      "JAVA编程知道"
+subtitle:   " 如何写一个好的java代码"
 date:       2015-08-04 12:00:00
 author:     "gambol"
 header-img: "img/post-bg-2015.jpg"
@@ -12,7 +13,6 @@ tags:
 # JAVA编程指导
 
 ---
-
 
 这篇文章是从twitter的编程指导翻译过来的。([原文地址](https://github.com/twitter/commons/blob/master/src/java/com/twitter/common/styleguide.md))
 
