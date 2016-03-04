@@ -2,7 +2,7 @@
 layout:     post
 title:      "硅谷禁书读书笔记"
 subtitle:   " \"励志书\""
-date:       2015-04-06 12:00:00
+date:       2015-01-06 12:00:00
 author:     "gambol"
 header-img: "img/post-bg-2015.jpg"
 tags:
