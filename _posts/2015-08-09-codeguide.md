@@ -1,12 +1,11 @@
-﻿---
+---
 layout:     post
 title:      "JAVA编程指导"
-subtitle:   " 如何写一个好的java代码"
-date:       2015-08-04 12:00:00
+date:       2015-08-09 12:00:00
 author:     "gambol"
 header-img: "img/post-bg-2015.jpg"
 tags:
-    - JAVA
+    - 读书笔记
 ---
 
 # java编程指导

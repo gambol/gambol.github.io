@@ -5,9 +5,304 @@
     <description></description>
     <link>http://gambol.github.io/</link>
     <atom:link href="http://gambol.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 02 Mar 2016 21:48:29 +0800</pubDate>
-    <lastBuildDate>Wed, 02 Mar 2016 21:48:29 +0800</lastBuildDate>
+    <pubDate>Sat, 05 Mar 2016 21:57:23 +0800</pubDate>
+    <lastBuildDate>Sat, 05 Mar 2016 21:57:23 +0800</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
+    
+      <item>
+        <title>动态代理</title>
+        <description>&lt;h1 id=&quot;section&quot;&gt;动态代理&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;代理是什么？&lt;/h2&gt;
+&lt;p&gt;在现实生活中，存在这样一种人—- 代理人。&lt;/p&gt;
+
+&lt;p&gt;举一个例子，你目前在加州，看见现在北京的房产价格很高，想卖掉手头的房。怎么办呢？只能委托给你在国内的父母进行售卖。你作为业主，需要做的事情是：签合同。 因为你不能回国，所以，你父母就替你卖房。 当然，父母比你要操心更多。譬如带买家看房，选择一个靠谱的买家，还要把钱打给你。&lt;/p&gt;
+
+&lt;p&gt;这个时候，父母就是你的代理。父母替你完成了许多你暂时不能（想）完成的工作&lt;/p&gt;
+
+&lt;p&gt;在计算机世界里，也经常需要这种角色。为什么在代码里也需要这种角色呢？有几个优点：
+1. &lt;strong&gt;职责清晰（核心角色只管签合同）&lt;/strong&gt;
+2. &lt;strong&gt;扩展性好&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;我们先写一个代码看&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public interface HouseSeller {
+
+    boolean sell(int money, int peopleId);
+
+    void signContract(int peopleId);
+
+}
+
+class $Young implements HouseSeller {
+
+    @Override
+    public boolean sell(int money, int peopleId) {
+
+        if (money &amp;gt; 100) {
+            System.out.println(&quot;ok, deal&quot;);
+            return true;
+        } else {
+            System.out.println(&quot;no, i want more&quot;);
+            return false;
+        }
+    }
+
+    @Override
+    public void signContract(int peopleId) {
+        System.out.println(&quot;done. bye bye&quot;);
+    }
+}
+
+class $Old implements HouseSeller {
+
+    $Young young;
+
+    public $Old($Young young) {
+        this.young = young;
+    }
+
+    @Override
+    public boolean sell(int money, int peopleId) {
+        // 代理人替实体干活
+        if (peopleId &amp;lt; 0) {
+            System.out.printf(&quot;no, not a good man&quot;);
+            return false;
+        }
+
+        return young.sell(money, peopleId);
+    }
+
+    @Override
+    public void signContract(int peopleId) {
+        // 找律师, 找房产证
+
+        young.signContract(peopleId);
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在这个代理里， Old就是Young的代理。代理通常做的事情如下图
+&lt;img src=&quot;http://static.zybuluo.com/gambol/mbqa1aq4x6rmp9snudo1b471/43918004_9&quot; alt=&quot;代理所做的事情&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;## 动态代理又是什么？&lt;/p&gt;
+
+&lt;p&gt;从上面的代码可以看出来，代理这种现象是存在的，也能解决不少问题。 但是明眼人都能看出来，上面的生成的那种代理（通常叫做静态代理）代码很罗嗦。&lt;/p&gt;
+
+&lt;p&gt;懒惰的程序员又整出了一个新的模式，动态代理 ，用来解决&lt;em&gt;啰嗦代码&lt;/em&gt;。解决方案是什么呢？ 
+第一招： 找了一个InvocationHandler来handle所有调用原始代码的地方。 
+&lt;img src=&quot;http://static.zybuluo.com/gambol/v3zc4i205275a7rxsp3x02jl/43918004_10&quot; alt=&quot;InvocationHandler&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如上图，如果想要InvocationHandler（或者说，代理）发挥作用，必须要Proxy和RealSubject能完成同样的功能。 怎么才能做到这个约定呢？ 有两种方案&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;接口。 让Proxy 和RealSubject 实现同一个接口。（这就是JDK提供的动态代理机制）&lt;/li&gt;
+  &lt;li&gt;继承。 让Proxy继承RealSubject。 这样Proxy就有了RealSubject的功能，还能改写RealSubject的功能呢。（这是cglib提供的代理机制）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;jdkinvocationhandler&quot;&gt;JDK默认动态代理（InvocationHandler）&lt;/h3&gt;
+
+&lt;p&gt;使用这种机制之前，切记JDK的默认代理机制是基于&lt;strong&gt;接口&lt;/strong&gt;的，也就是说，需要被代理的类（RealSubject）必须要实现某个接口， 只有接口里的方法才能被代理生成。&lt;/p&gt;
+
+&lt;p&gt;接着上面的代码，我们也用JDK默认的动态代理来写一个代码看看&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-JAVA&quot;&gt;
+class Handler implements InvocationHandler {
+
+    $Young young;
+
+    public HouseSeller bind($Young young) {
+        this.young = young;
+        // 重点关注
+        return (HouseSeller)Proxy.newProxyInstance(young.getClass().getClassLoader(), young.getClass().getInterfaces(), this);
+    }
+
+    // 重点关注
+    public Object invoke(Object proxy, Method method, Object[] args)
+            throws Throwable {
+
+        System.out.println(&quot;I am proxy: kakaka&quot;);
+
+        return method.invoke(young, args);
+    }
+
+
+    // 真正调用的地方
+    public static void main(String[] args) {
+        Handler old = new Handler();
+
+        HouseSeller seller = old.bind(new $Young());
+
+        int peopleId = 3;
+        int money = 200;
+        if (seller.sell(money, peopleId)) {
+            seller.signContract(peopleId);
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;重点注意几个地方:
+* 我们要新写一个代码, 实现&lt;code&gt;InvocationHandler&lt;/code&gt;接口. &lt;code&gt;InvocationHandler&lt;/code&gt;里,只有一个方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
+ * proxy:　　指代我们所代理的那个真实对象
+ * method:　　指代的是我们所要调用真实对象的某个方法的Method对象
+ * args:　　指代的是调用真实对象某个方法时接受的参数
+**/
+public Object invoke(Object proxy, Method method, Object[] args)
+        throws Throwable;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;Proxy.newProxyInstance&lt;/code&gt; 这个代码生成了真正的动态代理代码. 具体的实现代码见下&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
+ * loader:　　一个ClassLoader对象，定义了由哪个ClassLoader对象来对生成的代理对象进行加载
+ *
+ * interfaces:　　一个Interface对象的数组，表示的是我将要给我需要代理的对象提供一组什么接口，如果我提供了一组接口给它，那么这个代理对象就宣称实现了该接口(多态)，这样我就能调用这组接口中的方法了
+ *
+ * h:　　一个InvocationHandler对象，表示的是当我这个动态代理对象在调用方法的时候，会关联到哪一个InvocationHandler对象上
+**/
+
+    public static Object newProxyInstance(ClassLoader loader,
+                                          Class&amp;lt;?&amp;gt;[] interfaces,
+                                          InvocationHandler h)
+        throws IllegalArgumentException
+    {
+        ................
+        final Class&amp;lt;?&amp;gt;[] intfs = interfaces.clone();
+        
+        /*
+         * 生成/找到 proxy class
+         */
+        Class&amp;lt;?&amp;gt; cl = getProxyClass0(loader, intfs);
+
+        /*
+         * Invoke its constructor with the designated invocation handler.
+         */
+        try {
+            if (sm != null) {
+                checkNewProxyPermission(Reflection.getCallerClass(), cl);
+            }
+
+            final Constructor&amp;lt;?&amp;gt; cons = cl.getConstructor(constructorParams);
+            final InvocationHandler ih = h;
+            if (!Modifier.isPublic(cl.getModifiers())) {
+                AccessController.doPrivileged(new PrivilegedAction&amp;lt;Void&amp;gt;() {
+                    public Void run() {
+                        cons.setAccessible(true);
+                        return null;
+                    }
+                });
+            }
+            return cons.newInstance(new Object[]{h});
+        } 
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;从上面你的代码可以看出来, 使用InvocationHandler使用一个&lt;code&gt;invoke&lt;/code&gt;函数代替了之前的 &lt;code&gt;sell&lt;/code&gt;, &lt;code&gt;signContract&lt;/code&gt;函数. 恩,确实让大家懒惰了一些. (当然,JVM最后看到的代码, 仍然有&lt;code&gt;sell&lt;/code&gt;, &lt;code&gt;signContract&lt;/code&gt;.)&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;cglib&quot;&gt;CGLIB&lt;/h3&gt;
+&lt;p&gt;JDK的默认方法不错,但是有一个约束条件: 这个被代理的类,必须实现某个接口. 但是现实情况是,不是所有的想要被代理的类都实现了某个接口. 因此,这个时候CGLIB(Code Generation Library)诞生了.&lt;/p&gt;
+
+&lt;p&gt;cglib是针对类来实现代理的，他的原理是对指定的目标类生成一个子类，并覆盖其中方法实现增强，但因为采用的是继承，所以不能对final修饰的类进行代理。&lt;/p&gt;
+
+&lt;p&gt;还是接着写买房的代码, 我们看看使用CGLIB的情况下, 怎么写
+```
+class Hacker implements MethodInterceptor {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//要代理的原始对象
+private Object obj;
+
+public Object createProxy(Object target) {
+    this.obj = target;
+    // cglib里的增强类
+    Enhancer enhancer = new Enhancer();
+
+    // 设置代理目标
+    enhancer.setSuperclass(this.obj.getClass());
+
+    // 设置回调. 这是相当于代理类上的所有方法, 都会使用这个callback. callback使用intercept进行拦截
+    enhancer.setCallback(this);
+
+    return enhancer.create();
+}
+
+
+public Object intercept(Object paramObject, Method paramMethod, Object[] paramArrayOfObject, MethodProxy paramMethodProxy)
+        throws Throwable {
+    System.out.println(&quot;I am hacker go&quot;);
+    Object o = paramMethodProxy.invokeSuper(paramObject, paramArrayOfObject);
+    return o;
+}
+
+public static void main(String[] args) {
+    $Young proxyYoung =  ($Young)new Hacker().createProxy(new $Young());
+
+    int peopleId = 3;
+    int money = 200;
+    if (proxyYoung.sell(money, peopleId)) {
+        proxyYoung.signContract(peopleId);
+    }
+} } ```
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;从上文的代码可以看到CGLIB的核心是 Enhancer类,名字就霸气,叫做增强类. 在Spring的AOP很多生成的都是这种增强类.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;动态代理的机制是什么?&lt;/h2&gt;
+&lt;p&gt;上文说了很多动态代理的写法. 我们回头来想一想, 为什么JVM在能支持动态代理,
+InvocationHandler 和 cglib是怎么做到动态代理代码的生成的呢?&lt;/p&gt;
+
+&lt;p&gt;通常情况下, JAVA编译器将.java文件编译成.class文件,.class文件里放的是JVM才能识别的机器码. JVM在运行时, 解释.class文件, 加载到内存里, 生成Class对象.&lt;/p&gt;
+
+&lt;p&gt;这么说, 如果想要做动态代理, 其实只需要在运行时,生成对应的二进制文件(.class文件),传给JVM, JVM将这个文件解释,就动态的生成了一个Class对象.&lt;/p&gt;
+
+&lt;p&gt;参考下图:
+&lt;img src=&quot;http://static.zybuluo.com/gambol/3nqtusqrqv1nnwkcohed8dol/43918004_2&quot; alt=&quot;43918004_2-93.3kB&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以利用工具 ASM 或者 javaassist来做生成 class的事情&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;动态代理有什么用&lt;/h2&gt;
+&lt;p&gt;OK, 最后,我们来说一下, 代理有什么用.&lt;/p&gt;
+
+&lt;p&gt;通常情况下, 我们都不裸着用代理. 常用代理的地方包括:
+1. Spring的bean. 在Spring 上下文里, 所有的bean 都是代理之后的bean. 方便做一些功能的增强.
+2. AOP.&lt;/p&gt;
+
+&lt;p&gt;最后,说一个具体的例子.
+需求是:  写一个方法, 执行这个方法时, 会调用所有有@A注解的类里的testXXX()方法.
+解法 :&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;可以直接使用AspectJ来实现&lt;/li&gt;
+  &lt;li&gt;也可以自己手写代码实现.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;参考文献&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;http://www.360doc.com/content/14/0801/14/1073512_398598312.shtml&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Sat, 05 Mar 2016 20:00:00 +0800</pubDate>
+        <link>http://gambol.github.io/2016/03/05/proxy/</link>
+        <guid isPermaLink="true">http://gambol.github.io/2016/03/05/proxy/</guid>
+        
+        <category>读书笔记</category>
+        
+        
+      </item>
     
       <item>
         <title>wireshark网络分析就这么简单读书笔记</title>
@@ -256,6 +551,139 @@ c) 如果M&amp;lt;N, 返回 &lt;em&gt;“通过, 但是哥收到过M”&lt;/em&g
         <category>分布式</category>
         
         <category>技术</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>比特币</title>
+        <description>&lt;h1 id=&quot;section&quot;&gt;比特币&lt;/h1&gt;
+
+&lt;p&gt;标签（空格分隔）： 经济 电子货币 投资&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;比特币是什么? 解决什么问题&lt;/h1&gt;
+&lt;p&gt;比特币是一种数字货币，可以在用户之间进行交易，出现于2009年，据说总量只有2100w 货币的本质是用来交易，是一般等价物。只要大家愿意相信这个物品的价值，那他就可以成为货币。&lt;/p&gt;
+
+&lt;p&gt;白话一点说，比特币的出现是这样的， 突然有一天，上帝说，我这里有100w个贝壳，每个人都来我这里领吧，先到先得， 你们以后就用我给你们的备课进行交易哦。 A从上帝手中领了100个贝壳回家，B领了20个回家。
+每发出一个贝壳， 上帝就在账本里记录了一笔.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;2016-1-19， A领了100个贝壳&lt;/li&gt;
+  &lt;li&gt;2016-1-20， B领了20个贝壳&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;于是A和B就用这些贝壳进行交易。 有一天，A饿了，用5个贝壳跟B换了一斤大米。 于是上帝记录了一笔
+ - 2016-1-21, A的贝壳数减少5个，A有95个贝壳
+ - 2016-1-21, B的贝壳数增加5个，B有25个贝壳&lt;/p&gt;
+
+&lt;p&gt;这种日子过了一阵子之后，上帝累了，不想记账本，于是他把账本复制了很多份，发给了每一个居民。上帝告诉居民说，以后你们和其他交易后，自己大喊一声，告诉别的所有人。 当你们听见了别人大喊一声时，也记录下来这个交易。 和别人交易时，先看看自己的账本，看对方有没有钱就行了。  —– 于是， 去中心化的货币就出现了。&lt;/p&gt;
+
+&lt;p&gt;有过了一阵子，居民发现说，每天带着贝壳上街太麻烦了，反正账本里有所有人的贝壳数目，交易之前看看账本就好了。于是，比特币出现了。&lt;/p&gt;
+
+&lt;p&gt;比特币解决的问题主要是
+1. 去中心化。 不依赖于某一个组织，而是由全体比特币持有者来决定
+2. 利润上这种去中心化的体系，能提高效率。 牛逼的电子货币体系，使用起来，比银行转账方便。然而我在使用过程中发现，每笔交易延迟约5-10分钟。（这也是为什么莱特币出来的原因）
+3. 总量恒定，可以有效防止上帝心血来潮增加货币数量。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;section-2&quot;&gt;比特币有什么对手, 各有什么优缺点&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;一般等价物&lt;/th&gt;
+      &lt;th&gt;优点&lt;/th&gt;
+      &lt;th&gt;缺点&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;黄金&lt;/td&gt;
+      &lt;td&gt;天生的一般等价物，人类的基因缺陷&lt;/td&gt;
+      &lt;td&gt;太重了，不方便随身携带。交易困难&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;纸币 / 银行卡&lt;/td&gt;
+      &lt;td&gt;解决黄金“太重“的问题&lt;/td&gt;
+      &lt;td&gt;政府来做担保。如果政府不靠谱，纸币、银行卡就是废&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;比特币&lt;/td&gt;
+      &lt;td&gt;比纸币高级一点，去中心化，符合互联网特征。&lt;/td&gt;
+      &lt;td&gt;缺乏信用担保，不是每个人都信它。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;莱特币&lt;/td&gt;
+      &lt;td&gt;比比特币快，价钱更便宜&lt;/td&gt;
+      &lt;td&gt;比比特币信用更差&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;section-3&quot;&gt;比特币有什么关键的技术吗?&lt;/h1&gt;
+
+&lt;p&gt;比特币的设计者（中本聪）简直是一个天才（耶稣？）。一个很简单的事实是，他一个人设计出来的比特币席卷了全球，但是全世界的人却不知道他本人是谁。 比特币的源代码完全公开，现在仍然没有人发现比特币体系的漏洞。 关键的技术包括&lt;/p&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;区块 &amp;amp;&amp;amp; 区块链&lt;/h2&gt;
+&lt;p&gt;整个体系里最重要的技术，就是区块链。&lt;/p&gt;
+
+&lt;p&gt;区块链（block chain）类似于比特币系统中的账本。区块链是一群分散的客户端节点，并由所有参与者组成的分布式数据库，是对所有比特币交易历史的记录[16]。&lt;/p&gt;
+
+&lt;p&gt;首先介绍一个概念，什么是区块。一段时间内的交易打成的一个包称为区块。区块依次链接到上一个区块，形成区块链。区块按照顺序排列。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://static.zybuluo.com/gambol/o0qu4y66hcbhsgkszjoobrnq/f0897491c2069e307e0abcaa58e6808b_b%20%281%29.png&quot; alt=&quot;f0897491c2069e307e0abcaa58e6808b_b (1).png-35.5kB&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;每当有用户产生交易后，用p2p的技术，通知全世界所有的block chain里写上这条记录。譬如，A有区块1-20，同时A发现B最大区块是15，于是A就会把16-20的区块同步给B&lt;/p&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;挖矿&lt;/h2&gt;
+&lt;p&gt;比特币是一个p2p的世界。为了鼓励有更多的人保持在线，维护“账本”，中本聪设计了“挖矿”的功能。
+只要谁打包交易信息，生成了一个区块，谁就能得到一定的比特币作为奖励。— 这就是挖矿&lt;/p&gt;
+
+&lt;p&gt;因为有很明显的奖励机制（2016年初，每个比特币价值是2500 rmb，目前生成一个区块，大概奖励15个比特币），因此有大量的节点想来生成区块。为了保证区块的唯一性，比特币决定：最先生成符合比特币规则的区块就能获得这个区块的打包权。 规则大概是：SHA-256一次，如果生成的字符串里，从第一位开始，如果有足够多个连续的0，那么就OK拉。 当某个节点生成了一个区块，那么这个节点赶快发消息通知所有节点，区块已经生成。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;section-6&quot;&gt;比特币前景怎么样&lt;/h1&gt;
+&lt;p&gt;这部分内容是个人想的，不代表权威。 
+## 2016-1-21版本
+比特币的优势很明显： 
+1. 设计者是个天才，并且这个天才有很多的拥护者
+2. 数字化货币是历史的趋势，符合互联网的精神
+3. 在虚拟货币里，比特币目前信誉还不错&lt;/p&gt;
+
+&lt;p&gt;比特币相对来说劣势包括：
+1. 没有信用人给做担保，所以目前人们还有担心。
+2. 比特币的封闭性（只有2100w个比特币），很适合庄家炒作。譬如，如果现在有人买了50%的比特币，社会上流通的比特币会变少，于是比特币就更加值钱，庄家手头的比特币也得到了增值。
+3. 政府（或者既得利益者）的反抗。去中心化之后，银行和政府收到的冲击最大。
+4. 后来者心里不平衡。 09年早期时，随便是个人，就有几万个比特币。到现在，几万个比特币价值几千万 rmb。 又给了整个社会一次财富不平均的机会&lt;/p&gt;
+
+&lt;p&gt;总体来说，目前比特币还在观望中，可以少量的投资。对于我来说，如果16年年底慢慢长到了5k rmb /btc，或者16年之内，由于政府势力造成比特币跌到 现在的1/3（每个比特币 800 rmb）, 可能可以入手。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-7&quot;&gt;2016-1-24&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;另外，需要持续关注其他形式的货币，尤其是某些政府（或者较权威组织）参与的其他形式的货币。很可能是一次新的变革&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-8&quot;&gt;参考文章&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;https://www.zhihu.com/question/22076666&lt;/li&gt;
+  &lt;li&gt;https://blockchain.info/wallet/new wdb1&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;我的收款吗： 17BmdGmuiwTDR815S78pzFTuiSEKmUxjXF&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 29 Jan 2016 20:00:00 +0800</pubDate>
+        <link>http://gambol.github.io/2016/01/29/bitcoin/</link>
+        <guid isPermaLink="true">http://gambol.github.io/2016/01/29/bitcoin/</guid>
+        
+        <category>经济</category>
+        
+        <category>投资</category>
         
         
       </item>
@@ -705,10 +1133,8 @@ final static class Ticker {
       </item>
     
       <item>
-        <title>HIVE原来介绍</title>
+        <title>HIVE原理介绍</title>
         <description>&lt;h1 id=&quot;hive&quot;&gt;hive&lt;/h1&gt;
-
-&lt;p&gt;标签（空格分隔）： 技术 hive 大数据&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -1035,101 +1461,6 @@ end
         <category>分布式</category>
         
         <category>技术</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>决策与判断 读书笔记</title>
-        <description>&lt;h1 id=&quot;section&quot;&gt;决策与判断读书笔记&lt;/h1&gt;
-
-&lt;p&gt;标签（空格分隔）： 读书笔记 决策&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;p&gt;书的地址：http://item.jd.com/10137356.html&lt;/p&gt;
-
-&lt;h1 id=&quot;section-1&quot;&gt;偏差&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;大家对于事务的认识一般都是片面的，带有主观色彩(预期）去认识某个事务。&lt;/li&gt;
-  &lt;li&gt;态度的改变可能会影响行为，同样的，行为也很可能会影响你的态度。&lt;/li&gt;
-  &lt;li&gt;对于事情的回忆，一般也是片面的。除了记录之外，所有的回忆都可能又偏差。&lt;/li&gt;
-  &lt;li&gt;在不同的情境下，对于同一个事务认识会有很大的偏差。&lt;/li&gt;
-  &lt;li&gt;对比性。 事情的好坏一般是对比出来的
-    &lt;ol&gt;
-      &lt;li&gt;初始效应 &amp;amp;&amp;amp;近因效应。&lt;/li&gt;
-      &lt;li&gt;某些情况下，第一影响最重要，某些情况下，比较近的原因比较重要。 总之，不要中间。&lt;/li&gt;
-      &lt;li&gt;大家喜欢从个别特性去推导全面。 譬如，如果A比较诚实，就会认为A是一个上进的人&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;section-2&quot;&gt;问题 &amp;amp;&amp;amp; 答案&lt;/h1&gt;
-&lt;p&gt;问题也会影响答案. 包括且不限于
-1. 问题的顺序
-2. 问题的意境
-3. 问题是否是开放式
-4. 答案的范围。
-5. 是从收益提问还是风险提问（人偏向于风险时激进，收益时保守）&lt;/p&gt;
-
-&lt;h1 id=&quot;section-3&quot;&gt;决策&lt;/h1&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;理论上存在最优决策，但是实际上大家选择的都是“满意”的，而不是最优的&lt;/li&gt;
-  &lt;li&gt;前景理论：人偏向于规避损失&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;直觉很多情况下都有偏差，要努力克服这些偏差。手段包括
-a. 不要关注情境里的细节
-b. 注意每件事情发生的概率。几次偶然事件的发生，不会改变概率. 一系列好的运气，并不会带来坏的运气
-c. 和b不同的是，如果能力一定的情况下，一些极端好的成绩，可能接下来会向平均值靠拢。
-d. 不要想当然的认为经常进入你视野的事情，发生的频率就高。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;决策常见的几个误区
-a. 群体， 小心群体决策。 独裁者的决策往往比民主决策准确性高很多
-b.过度自信 。 带来的危害最大。 （这一条 和 “独裁” 有冲突）。  解决方法：  停下来思考一下为什么你的判断可能是错误的；通过考虑其他结果或答案的可能性来减少各种判断上的偏差。
-c. 证实 而不是 证伪。  大家往往带有固有观点 去证明，而不是从反的方向去想
-d 行为误区。 解决方法 ：
- 1）知道如何止损
- 2）让不同的人来决策 — 不过这个也有明显缺点。行动没有延续性&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;section-4&quot;&gt;个人总结&lt;/h1&gt;
-&lt;ol&gt;
-  &lt;li&gt;人不可避免存在各种问题，各种偏差。 无论怎么努力，偏差是不可避免的。&lt;/li&gt;
-  &lt;li&gt;思维模型取决于你为什么而思考。&lt;/li&gt;
-  &lt;li&gt;对自身行为有责任感的决策者不会像没有责任感的人那样过度自信，能表现出更高的复杂分析能力&lt;/li&gt;
-  &lt;li&gt;多用时间来思考，利用尽可能多的线索来思考&lt;/li&gt;
-&lt;/ol&gt;
-
-</description>
-        <pubDate>Thu, 09 Jul 2015 20:00:00 +0800</pubDate>
-        <link>http://gambol.github.io/2015/07/09/judgement/</link>
-        <guid isPermaLink="true">http://gambol.github.io/2015/07/09/judgement/</guid>
-        
-        <category>读书笔记</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>硅谷禁书读书笔记</title>
-        <description>&lt;h1 id=&quot;section&quot;&gt;硅谷禁书&lt;/h1&gt;
-
-&lt;p&gt;标签（空格分隔）： 读书笔记&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;全文中心思想：
-1） 要勇敢去想自己想要的，有明确的目标
-2） 在尊新自然的法则前提下，勤思考自己的目标
-3） 在思考的前提下，改变自己，去完成自己的目标。&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 06 Apr 2015 20:00:00 +0800</pubDate>
-        <link>http://gambol.github.io/2015/04/06/silcoin/</link>
-        <guid isPermaLink="true">http://gambol.github.io/2015/04/06/silcoin/</guid>
-        
-        <category>读书笔记</category>
         
         
       </item>
