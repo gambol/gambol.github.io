@@ -1,36 +1,33 @@
-﻿---
+---
 layout:     post
 title:      "序列化工具对比"
-subtitle:   " \"比比比,不怕不识货就怕货比货\""
-date:       2016-03-13 01:14:00
+subtitle:   "比比比,不怕不识货就怕货比货"
+date:       2016-03-12 12:00:00
 author:     "gambol"
 header-img: "img/post-bg-2016.jpg"
 tags:
     - 序列化
-    - protobuf
-    - kryo
-    - protostuff
+    - 技术
 ---
 
 
 # 序列化工具对比
 
-
----
-
-[TOC]
-
 ## 起因
-今天早上凌晨, 机器报警. jstack之后, 发现大部分线程都在进行json反序列化. 一看代码, 发现是因为: 我们的逻辑是从缓存中取出JSON字符串, 反序列化成object. 绝大部分线程都在下面的第二个语句里.
+今天早上凌晨, 机器报警. jstack之后, 发现大部分线程都在进行json反序列化. 一看代码, 发现是因为: 我们的逻辑是从缓存中取出JSON字符串, 反序列化成object.
+
+ 绝大部分线程都在下面的第二个语句里.
 
 
 ```JAVA
-        String cacheDetail = cacheInfo.queryCacheDetail();
-        AdapterHotelProduct adapterHotelProduct = JsonUtil.parseObject(cacheDetail, new TypeReference<AdapterHotelProduct>() {
+String cacheDetail = cacheInfo.queryCacheDetail();
+AdapterHotelProduct adapterHotelProduct = JsonUtil.parseObject(cacheDetail, new TypeReference<AdapterHotelProduct>() {
         });
 ```
 
-我猜想是利用Jackson 进行JSON反序列化速度太慢, 因此,我写本文看看有哪些序列化工具, 以及对各种工具性能进行对比. 没有耐心的同学, 可以直接看结论.:D
+我猜想是利用Jackson 进行JSON反序列化速度太慢, 因此,我想看看有哪些序列化工具, 以及对各种工具性能进行对比. 
+
+没有耐心的同学, 可以直接看结论.:D
 
 ## 经过
 经过就是, 我用一天的时间写了一个benchmark代码,进行测试. 测试代码请看 [github](https://github.com/gambol/javaStudy/tree/master/examples/core/main/java/gambol/examples/serialize/benchmark)
@@ -85,8 +82,11 @@ protobuf最大的优点是, 速度快, 压缩比例高. 缺点是, 要手写prot
 - kryo版本 3.0.3
 
 ### 测试结果
+
 #### 序列化
+
 - 小体积对象
+
 | 工具 | 最大时间(milliseconds) | 最小时间 | 平均时间 | 大小 (字节) |
 |------|------|------|------|-----|
 | jackson | 32 | 12 | 15 | 3004 |
@@ -96,7 +96,10 @@ protobuf最大的优点是, 速度快, 压缩比例高. 缺点是, 要手写prot
 | protobuf | 27 | 2 | 8 | 1043 |
 | protostuff | 10 | 4 | 6 | 1043 |
 
+---
+
 - 大体积对象
+
 | 工具 | 最大时间(milliseconds) | 最小时间 | 平均时间 | 大小 (字节) |
 |------|------|------|------|-----|
 | jackson | 422 | 357 | 376 | 94226 |
@@ -106,8 +109,13 @@ protobuf最大的优点是, 速度快, 压缩比例高. 缺点是, 要手写prot
 | protobuf | 105 | 88 | 93 | 33737 |
 | protostuff | 159 | 155 | 156 | 33737 |
 
+----
+
 #### 反序列化
+
+
 - 小体积对象
+
 | 工具 | 最大时间(milliseconds) | 最小时间 | 平均时间 |
 |------|------|------|------|
 | jackson | 48 | 20 | 24 |
@@ -117,7 +125,9 @@ protobuf最大的优点是, 速度快, 压缩比例高. 缺点是, 要手写prot
 | protobuf | 10 | 4 | 6 | 
 | protostuff | 14 | 5 | 6 | 
 
+----
 - 大体积对象
+
 | 工具 | 最大时间(milliseconds) | 最小时间 | 平均时间 |
 |------|------|------|------|
 | jackson | 661 | 639 | 648 |
