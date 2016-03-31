@@ -1,6 +1,6 @@
 # Site settings
 title: Gambol's Blog
-SEOTitle: gambol自己的思考
+SEOTitle: gambol
 header-img: img/home-bg.jpg
 email: happyzzb@gmail.com
 description: ""
@@ -17,7 +17,6 @@ weibo_username:     gambolchou
 github_username:    gambol
 #twitter_username:  huxpro
 facebook_username:  zhou.zhenbao
-
 
 
 # Build settings
@@ -49,8 +48,6 @@ kramdown:
 # duoshuo_share: true                     # set to false if you want to use Comment without Sharing
 
 
-
-
 # Analytics settings
 # Baidu Analytics
 #ba_track_id: 4cc1f2d8f3067386cc5cdb626a202900
@@ -62,7 +59,7 @@ kramdown:
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "持续思考，不停进步"
+sidebar-about-description: "简单着想,认真落实"
 sidebar-avatar: /img/biu.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
