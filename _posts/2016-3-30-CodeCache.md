@@ -77,16 +77,19 @@ CodeCache 和 Permanent Generation 都属于 non-heap memory.
 在直到CodeCache的剩余空间达到 *CodeCacheMinimumFreeSpace* (默认是500k) 之前, JVM在会一直关闭JIT的编译功能.
 
 JDK6里的*UseCodeCacheFlushing* 默认为false, 在JDK7U4之后, *UseCodeCacheFlushing*默认是true. 也就是说:
+
  - 在JDK6里, 如果code cache满了, **默认情况下**, JVM就一直保留已经编译后的native code, 并且关闭JIT功能,不再进行新的compilation.
  - 在JDK7U4之后, 先关闭JIT, 然后对code cache清理.
 
 但是, JDK7之后, 关于CodeCache有几个BUG
+
 1. 即使code cache清理的很彻底了, 但是JVM仍然不会重新开启JIT功能
 2. 对code cache的清理工作也能占用大量的cpu资源, 并减慢整个JVM的工作效率
 
 这是一个已知的bug,  [JDK-8006952 : CodeCacheFlushing degenerates VM with excessive codecache freelist iteration](http://bugs.java.com/bugdatabase/view_bug.do?bug_id=8006952). bug描述的现象和我们遇到的现象基本相同. 
 
 还有一些其他的相关BUG列举如下:
+
 1. [JDK-8012547 : Code cache flushing can get stuck without completing reclamation of memory](http://bugs.java.com/bugdatabase/view_bug.do?bug_id=8012547)
 2. [JDK-8029091 : Bug in calculation of code cache sweeping interval](http://bugs.java.com/bugdatabase/view_bug.do?bug_id=8029091)
 
@@ -126,6 +129,7 @@ JDK6里的*UseCodeCacheFlushing* 默认为false, 在JDK7U4之后, *UseCodeCacheF
 在JDK7里, 对于CodeCache的查看以及管理做的不好(活该有bug), 基本上没有提供查看这部分内存使用情况的参数.JDK8里, 可以使用 PrintCodeCache 或者 PrintCodeCacheOnCompilation选项来查看CodeCache的具体使用信息 .
 
 而JDK7里, 可以用的方法包括
+
 1. 开启JMX之后, 使用jvisualVM 或者 jconsole查看. 
 2. 在线上写代码, 调用jvm mbean方法来查看. 可以参考https://examples.javacodegeeks.com/enterprise-java/jmx/list-all-jvm-mbeans/. (我目前还没有试过, 代码待补充)
 
