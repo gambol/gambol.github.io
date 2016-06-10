@@ -13,4 +13,5 @@ tags:
 ## 起因
 
 本来是要做一个ppt介绍的. 写了ppt, 放在博客上做个纪念吧.
-请 [下载 PDF]({{ site.url }}/_download/write_code.pdf).
+
+请 [下载 PDF]({{ site.url }}/download/write_code.pdf).
