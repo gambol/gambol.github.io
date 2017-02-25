@@ -1,0 +1,287 @@
+<h1 id="section">动态代理</h1>
+
+<hr />
+
+<h2 id="section-1">代理是什么？</h2>
+<p>在现实生活中，存在这样一种人—- 代理人。</p>
+
+<p>举一个例子，你目前在加州，看见现在北京的房产价格很高，想卖掉手头的房。怎么办呢？只能委托给你在国内的父母进行售卖。你作为业主，需要做的事情是：签合同。 因为你不能回国，所以，你父母就替你卖房。 当然，父母比你要操心更多。譬如带买家看房，选择一个靠谱的买家，还要把钱打给你。</p>
+
+<p>这个时候，父母就是你的代理。父母替你完成了许多你暂时不能（想）完成的工作</p>
+
+<p>在计算机世界里，也经常需要这种角色。为什么在代码里也需要这种角色呢？有几个优点：
+1. <strong>职责清晰（核心角色只管签合同）</strong>
+2. <strong>扩展性好</strong></p>
+
+<p>我们先写一个代码看</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HouseSeller</span> <span class="o">{</span>
+
+    <span class="kt">boolean</span> <span class="n">sell</span><span class="o">(</span><span class="kt">int</span> <span class="n">money</span><span class="o">,</span> <span class="kt">int</span> <span class="n">peopleId</span><span class="o">);</span>
+
+    <span class="kt">void</span> <span class="n">signContract</span><span class="o">(</span><span class="kt">int</span> <span class="n">peopleId</span><span class="o">);</span>
+
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="err">$</span><span class="nc">Young</span> <span class="kd">implements</span> <span class="n">HouseSeller</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">sell</span><span class="o">(</span><span class="kt">int</span> <span class="n">money</span><span class="o">,</span> <span class="kt">int</span> <span class="n">peopleId</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">money</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"ok, deal"</span><span class="o">);</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"no, i want more"</span><span class="o">);</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">signContract</span><span class="o">(</span><span class="kt">int</span> <span class="n">peopleId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"done. bye bye"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="err">$</span><span class="nc">Old</span> <span class="kd">implements</span> <span class="n">HouseSeller</span> <span class="o">{</span>
+
+    <span class="n">$Young</span> <span class="n">young</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">$Old</span><span class="o">(</span><span class="n">$Young</span> <span class="n">young</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">young</span> <span class="o">=</span> <span class="n">young</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">sell</span><span class="o">(</span><span class="kt">int</span> <span class="n">money</span><span class="o">,</span> <span class="kt">int</span> <span class="n">peopleId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 代理人替实体干活</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">peopleId</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"no, not a good man"</span><span class="o">);</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">young</span><span class="o">.</span><span class="na">sell</span><span class="o">(</span><span class="n">money</span><span class="o">,</span> <span class="n">peopleId</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">signContract</span><span class="o">(</span><span class="kt">int</span> <span class="n">peopleId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 找律师, 找房产证</span>
+
+        <span class="n">young</span><span class="o">.</span><span class="na">signContract</span><span class="o">(</span><span class="n">peopleId</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre>
+</div>
+
+<p>在这个代理里， Old就是Young的代理。代理通常做的事情如下图
+<img src="http://static.zybuluo.com/gambol/mbqa1aq4x6rmp9snudo1b471/43918004_9" alt="代理所做的事情" /></p>
+
+<hr />
+<p>## 动态代理又是什么？</p>
+
+<p>从上面的代码可以看出来，代理这种现象是存在的，也能解决不少问题。 但是明眼人都能看出来，上面的生成的那种代理（通常叫做静态代理）代码很罗嗦。</p>
+
+<p>懒惰的程序员又整出了一个新的模式，动态代理 ，用来解决<em>啰嗦代码</em>。解决方案是什么呢？ 
+第一招： 找了一个InvocationHandler来handle所有调用原始代码的地方。 
+<img src="http://static.zybuluo.com/gambol/v3zc4i205275a7rxsp3x02jl/43918004_10" alt="InvocationHandler" /></p>
+
+<p>如上图，如果想要InvocationHandler（或者说，代理）发挥作用，必须要Proxy和RealSubject能完成同样的功能。 怎么才能做到这个约定呢？ 有两种方案</p>
+
+<ol>
+  <li>接口。 让Proxy 和RealSubject 实现同一个接口。（这就是JDK提供的动态代理机制）</li>
+  <li>继承。 让Proxy继承RealSubject。 这样Proxy就有了RealSubject的功能，还能改写RealSubject的功能呢。（这是cglib提供的代理机制）</li>
+</ol>
+
+<hr />
+
+<h3 id="jdkinvocationhandler">JDK默认动态代理（InvocationHandler）</h3>
+
+<p>使用这种机制之前，切记JDK的默认代理机制是基于<strong>接口</strong>的，也就是说，需要被代理的类（RealSubject）必须要实现某个接口， 只有接口里的方法才能被代理生成。</p>
+
+<p>接着上面的代码，我们也用JDK默认的动态代理来写一个代码看看</p>
+
+<pre><code class="language-JAVA">
+class Handler implements InvocationHandler {
+
+    $Young young;
+
+    public HouseSeller bind($Young young) {
+        this.young = young;
+        // 重点关注
+        return (HouseSeller)Proxy.newProxyInstance(young.getClass().getClassLoader(), young.getClass().getInterfaces(), this);
+    }
+
+    // 重点关注
+    public Object invoke(Object proxy, Method method, Object[] args)
+            throws Throwable {
+
+        System.out.println("I am proxy: kakaka");
+
+        return method.invoke(young, args);
+    }
+
+
+    // 真正调用的地方
+    public static void main(String[] args) {
+        Handler old = new Handler();
+
+        HouseSeller seller = old.bind(new $Young());
+
+        int peopleId = 3;
+        int money = 200;
+        if (seller.sell(money, peopleId)) {
+            seller.signContract(peopleId);
+        }
+    }
+}
+</code></pre>
+
+<p>重点注意几个地方:
+* 我们要新写一个代码, 实现<code class="highlighter-rouge">InvocationHandler</code>接口. <code class="highlighter-rouge">InvocationHandler</code>里,只有一个方法</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>/**
+ * proxy:　　指代我们所代理的那个真实对象
+ * method:　　指代的是我们所要调用真实对象的某个方法的Method对象
+ * args:　　指代的是调用真实对象某个方法时接受的参数
+**/
+public Object invoke(Object proxy, Method method, Object[] args)
+        throws Throwable;
+</code></pre>
+</div>
+
+<ul>
+  <li><code class="highlighter-rouge">Proxy.newProxyInstance</code> 这个代码生成了真正的动态代理代码. 具体的实现代码见下</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>/**
+ * loader:　　一个ClassLoader对象，定义了由哪个ClassLoader对象来对生成的代理对象进行加载
+ *
+ * interfaces:　　一个Interface对象的数组，表示的是我将要给我需要代理的对象提供一组什么接口，如果我提供了一组接口给它，那么这个代理对象就宣称实现了该接口(多态)，这样我就能调用这组接口中的方法了
+ *
+ * h:　　一个InvocationHandler对象，表示的是当我这个动态代理对象在调用方法的时候，会关联到哪一个InvocationHandler对象上
+**/
+
+    public static Object newProxyInstance(ClassLoader loader,
+                                          Class&lt;?&gt;[] interfaces,
+                                          InvocationHandler h)
+        throws IllegalArgumentException
+    {
+        ................
+        final Class&lt;?&gt;[] intfs = interfaces.clone();
+        
+        /*
+         * 生成/找到 proxy class
+         */
+        Class&lt;?&gt; cl = getProxyClass0(loader, intfs);
+
+        /*
+         * Invoke its constructor with the designated invocation handler.
+         */
+        try {
+            if (sm != null) {
+                checkNewProxyPermission(Reflection.getCallerClass(), cl);
+            }
+
+            final Constructor&lt;?&gt; cons = cl.getConstructor(constructorParams);
+            final InvocationHandler ih = h;
+            if (!Modifier.isPublic(cl.getModifiers())) {
+                AccessController.doPrivileged(new PrivilegedAction&lt;Void&gt;() {
+                    public Void run() {
+                        cons.setAccessible(true);
+                        return null;
+                    }
+                });
+            }
+            return cons.newInstance(new Object[]{h});
+        } 
+    }
+</code></pre>
+</div>
+
+<p>从上面你的代码可以看出来, 使用InvocationHandler使用一个<code class="highlighter-rouge">invoke</code>函数代替了之前的 <code class="highlighter-rouge">sell</code>, <code class="highlighter-rouge">signContract</code>函数. 恩,确实让大家懒惰了一些. (当然,JVM最后看到的代码, 仍然有<code class="highlighter-rouge">sell</code>, <code class="highlighter-rouge">signContract</code>.)</p>
+
+<hr />
+
+<h3 id="cglib">CGLIB</h3>
+<p>JDK的默认方法不错,但是有一个约束条件: 这个被代理的类,必须实现某个接口. 但是现实情况是,不是所有的想要被代理的类都实现了某个接口. 因此,这个时候CGLIB(Code Generation Library)诞生了.</p>
+
+<p>cglib是针对类来实现代理的，他的原理是对指定的目标类生成一个子类，并覆盖其中方法实现增强，但因为采用的是继承，所以不能对final修饰的类进行代理。</p>
+
+<p>还是接着写买房的代码, 我们看看使用CGLIB的情况下, 怎么写
+```
+class Hacker implements MethodInterceptor {</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//要代理的原始对象
+private Object obj;
+
+public Object createProxy(Object target) {
+    this.obj = target;
+    // cglib里的增强类
+    Enhancer enhancer = new Enhancer();
+
+    // 设置代理目标
+    enhancer.setSuperclass(this.obj.getClass());
+
+    // 设置回调. 这是相当于代理类上的所有方法, 都会使用这个callback. callback使用intercept进行拦截
+    enhancer.setCallback(this);
+
+    return enhancer.create();
+}
+
+
+public Object intercept(Object paramObject, Method paramMethod, Object[] paramArrayOfObject, MethodProxy paramMethodProxy)
+        throws Throwable {
+    System.out.println("I am hacker go");
+    Object o = paramMethodProxy.invokeSuper(paramObject, paramArrayOfObject);
+    return o;
+}
+
+public static void main(String[] args) {
+    $Young proxyYoung =  ($Young)new Hacker().createProxy(new $Young());
+
+    int peopleId = 3;
+    int money = 200;
+    if (proxyYoung.sell(money, peopleId)) {
+        proxyYoung.signContract(peopleId);
+    }
+} } ```
+</code></pre>
+</div>
+
+<p>从上文的代码可以看到CGLIB的核心是 Enhancer类,名字就霸气,叫做增强类. 在Spring的AOP很多生成的都是这种增强类.</p>
+
+<hr />
+
+<h2 id="section-2">动态代理的机制是什么?</h2>
+<p>上文说了很多动态代理的写法. 我们回头来想一想, 为什么JVM在能支持动态代理,
+InvocationHandler 和 cglib是怎么做到动态代理代码的生成的呢?</p>
+
+<p>通常情况下, JAVA编译器将.java文件编译成.class文件,.class文件里放的是JVM才能识别的机器码. JVM在运行时, 解释.class文件, 加载到内存里, 生成Class对象.</p>
+
+<p>这么说, 如果想要做动态代理, 其实只需要在运行时,生成对应的二进制文件(.class文件),传给JVM, JVM将这个文件解释,就动态的生成了一个Class对象.</p>
+
+<p>参考下图:
+<img src="http://static.zybuluo.com/gambol/3nqtusqrqv1nnwkcohed8dol/43918004_2" alt="43918004_2-93.3kB" /></p>
+
+<p>可以利用工具 ASM 或者 javaassist来做生成 class的事情</p>
+
+<h2 id="section-3">动态代理有什么用</h2>
+<p>OK, 最后,我们来说一下, 代理有什么用.</p>
+
+<p>通常情况下, 我们都不裸着用代理. 常用代理的地方包括:
+1. Spring的bean. 在Spring 上下文里, 所有的bean 都是代理之后的bean. 方便做一些功能的增强.
+2. AOP.</p>
+
+<p>最后,说一个具体的例子.
+需求是:  写一个方法, 执行这个方法时, 会调用所有有@A注解的类里的testXXX()方法.
+解法 :</p>
+
+<ol>
+  <li>可以直接使用AspectJ来实现</li>
+  <li>也可以自己手写代码实现.</li>
+</ol>
+
+<h2 id="section-4">参考文献</h2>
+<ol>
+  <li>http://www.360doc.com/content/14/0801/14/1073512_398598312.shtml</li>
+</ol>

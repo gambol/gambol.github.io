@@ -1,0 +1,79 @@
+<h1 id="hive">hive</h1>
+
+<hr />
+
+<h1 id="hive-1">HIVE是什么</h1>
+<p>基于hadoop的查询工具,方便把结构的数据文件序列化成一张数据库表. 允许开发人员把sql语句转成MapReduce任务运行.</p>
+
+<h1 id="hive-2">和HIVE类似的东西是什么,各有什么优缺点</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>名字</th>
+      <th>优点</th>
+      <th>缺点</th>
+      <th>适用场景</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hive</td>
+      <td>和hadoop原生集成</td>
+      <td>慢,性能低</td>
+      <td>绝大部分场景</td>
+    </tr>
+    <tr>
+      <td>Cloudera Impala</td>
+      <td>不用MapReduce进行查询, 适用自己的守护进程</td>
+      <td>需要自己的特定的文件格式,还需要Imala守护进程</td>
+      <td>需要更快查询</td>
+    </tr>
+    <tr>
+      <td>Presto</td>
+      <td>和Impala类似</td>
+      <td>除了Impala的缺点之外.还多一点:没有大公司支持</td>
+      <td>既要速度, 而且自己够牛逼</td>
+    </tr>
+    <tr>
+      <td>Shark</td>
+      <td>构建在spark上, 是hive的扩展. 目的是不需要mapreduce,在自己的节点上运算</td>
+      <td>暂时不成熟</td>
+      <td>目前不成熟</td>
+    </tr>
+    <tr>
+      <td>Apache Phoenix</td>
+      <td>基于hbase的搜索引擎</td>
+      <td> </td>
+      <td>用了hbase,就可以用它.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="hive-3">HIVE是怎么做的?</h1>
+<p>## 先看具体组件</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/56d8760agw1ezc4yts2haj20k50mzdhx.jpg" alt="此处输入图片的描述" /></p>
+
+<p>核心是MetaStore组件. 存储hive的元数据, 提供原始meta服务</p>
+
+<p>具体的运行步骤
+<img src="http://ww4.sinaimg.cn/large/56d8760agw1ezc5jyjjkbj21160j841f.jpg" alt="此处输入图片的描述" /></p>
+
+<h2 id="hive-4">hive主要的数据结构</h2>
+
+<h3 id="database">Database</h3>
+<p>相当于数据库的命名空间</p>
+
+<h3 id="table">table</h3>
+<p>分成两部分数据, 数据文件(存在hdfs里, 在hdfs上, 一个table就是一个文件夹)和元数据(存在关系数据库里)</p>
+
+<h3 id="partition">partition</h3>
+<p>一个partition就是类似于存在一个子目录里.分区列不是表里的某个字段，而是独立的列. 这个字段主要目的是加快分区的查询速度.</p>
+
+<h3 id="bucket">bucket</h3>
+<p>table和partition都是目录级别的拆分数据，bucket则是对数据源数据文件本身来拆分数据。使用桶的表会将源数据文件按一定规律拆分成多个文件，要使用bucket
+貌似没啥用</p>
+
+<h1 id="section">参考文献</h1>
+<p>http://www.cnblogs.com/sharpxiajun/archive/2013/06/02/3114180.html</p>
