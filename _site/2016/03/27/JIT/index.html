@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>JIT - gambol</title>
+
+    <link rel="canonical" href="http://gambol.github.io/2016/03/27/JIT/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Gambol's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-2016.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/post-bg-2016.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#技术" title="技术">技术</a>
+                        
+                        <a class="tag" href="/tags/#JAVA" title="JAVA">JAVA</a>
+                        
+                        <a class="tag" href="/tags/#JVM" title="JVM">JVM</a>
+                        
+                        <a class="tag" href="/tags/#JIT" title="JIT">JIT</a>
+                        
+                    </div>
+                    <h1>JIT</h1>
+                    
+                    
+                    <h2 class="subheading">JVM的优化编译器</h2>
+                    
+                    <span class="meta">Posted by gambol on March 27, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<p>﻿#  JIT</p>
+
+<hr />
+
+<h2 id="hotspot-jvm">Hotspot JVM运行模式</h2>
+<p>JVM有两种模式, -client  和 -server. 从JDK5开始, JVM会根据机器的不同来决定使用哪种模式.</p>
+
+<p>使用 java  -version可以看到具体所使用的模式</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ java -version 
+java version "1.8.0_45"
+Java(TM) SE Runtime Environment (build 1.8.0_45-b14)
+Java HotSpot(TM) 64-Bit Server VM (build 25.45-b02, mixed mode)
+</code></pre>
+</div>
+
+<p>在上面命令里,除了  <code class="highlighter-rouge">64-Bit Server</code> 这个吸引我之外, 还有一个东西很有意思.  <code class="highlighter-rouge">mixed mode</code></p>
+
+<p>这是说明, Hotspot VM在默认情况下都是采用解释器+即时编译器的<code class="highlighter-rouge">混合</code>模式共同执行程序.  我们也可以指定不适用混合模式. 使用-Xint 和 -Xcomp即可.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[gambols-mbp15][zhenbao.zhou][~/work/java_works]
+$ java -Xcomp -version
+java version "1.8.0_45"
+Java(TM) SE Runtime Environment (build 1.8.0_45-b14)
+Java HotSpot(TM) 64-Bit Server VM (build 25.45-b02, compiled mode)
+
+[gambols-mbp15][zhenbao.zhou][~/work/java_works]
+$ java -Xint -version
+java version "1.8.0_45"
+Java(TM) SE Runtime Environment (build 1.8.0_45-b14)
+Java HotSpot(TM) 64-Bit Server VM (build 25.45-b02, interpreted mode)
+</code></pre>
+</div>
+
+<p>好,问题来了,解释器(Interpreter) 和 编译器 (compiled)是什么呢? 为什么需要者两个模式?</p>
+
+<h2 id="interpreter">Interpreter解释器</h2>
+<p>### 为什么需要解释器
+在JVM早期的发展过程时, JVM的开发人员为了实现<code class="highlighter-rouge">跨平台</code>, 不适用传统的静态编译的方式直接生成本地机器指令，而是实现了解释器(interpreter), 在运行时采用逐行解释字节码执行程序的想法.</p>
+
+<h3 id="section">解释器的工作原理</h3>
+<p>在程序运行的过程中, JVM根据预定义的规范对字节码采用逐行解释的方式执行，解释器将字节码文件中的内容“翻译”为对应平台的本地机器指令执行。当一条字节码指令被解释执行完成后，接着再根据PC寄存器中记录的下一条需要被执行的字节码指令执行解释操作</p>
+
+<p>解释器的任务就是负责将字节码指令解释为对应平台的本地机器指令执行。在HotSpot VM中，解释器主要由Interpreter模块和Code模块构成。</p>
+
+<ul>
+  <li>Interpreter模块
+这个模块模块实现了解释器的核心功能, – 解释</li>
+  <li>Code模块
+管理JVM生成的本地机器指令.</li>
+</ul>
+
+<h2 id="section-1">编译器</h2>
+<p>明眼人预计都能看出来, 上面的解释器执行方式效率是有问题的. 因此Hotspot VM有弄了一个编译器. 通常叫做JIT编译器. Hotspot是怎么做的呢? 
+关于那些需要被编译为本地代码的字节码，也被称之为“热点代码”，JIT编译器在运行时会针对那些频繁被调用的“热点代码”做出深度优化，将其直接编译为对应平台的本地机器指令，以此提升Java程序的执行性能.</p>
+
+<p>有哪些代码会被编译成本地机器指令呢?
+1. Invocation Counter  会记录每个方法(method)的执行次数, 当次数大于某一个值的时候, JIT就认为这是一个”热”的方法, 并且编译成本地机器指令(natvie code). 在server模式时,  这个值默认是 10000. 可以通过 -XX:CompileThreshold=10000 来调节.</p>
+
+<ol>
+  <li>Back Edge Counter 记录每个循环里代码的执行次数. 如果这个循环里的代码执行次数大鱼某一个值时, 则会把循环里的代码编译成本地机器指令, 并替换掉.</li>
+</ol>
+
+<p>总体来说, 可以由下面的图看出来JIT的执行
+<img src="http://static.zybuluo.com/gambol/gfz5wf5ab9x7kmu2kqmz759b/wKiom1Uwk6aipaOAAACdbZhEZVo906.jpg" alt="wKiom1Uwk6aipaOAAACdbZhEZVo906.jpg-39.4kB" /></p>
+
+<h3 id="jit">JIT编译器的组成</h3>
+<p>JIT编译器主要由C1模块、Opto模块和Shark模块构成。
+- C1模块实现了Client Compiler编译器
+- 而Opto模块实现了Server Compiler编译器，因此C2编译器也可以被称之为Opto编译器
+- Shark模块中则实现了一个基于LLVM的编译器</p>
+
+<h2 id="tiered-compilation">分层编译策略(Tiered Compilation)</h2>
+<p>默认情况下, 使用Client模式时, 我们使用的是C1编译器. 使用Server模式时, 启用了C2编译器. 
+为了加快系统的启动速度, 在JDK7之后, 在Server模式后,默认开启分层编译策略.</p>
+
+<p>在这种模式下,我们JVM的策略如下:
+第0层. 由解释器解释代码执行, 并且解释器关闭代码优化的模块
+第1层. 由C1编译器编译成本地机器代码执行, C1编译器执行少量的字节码优化.
+第2层. C1编译器进行 invocation 和 backedge counter优化
+第3层. C1编译器编译为本地机器指令执行，采集性能数据进行优化措施 (比 第二层慢 35%)
+第4层. C2编译器进行完整的优化</p>
+
+<h1 id="todo">TODO</h1>
+<p>没有明白的一个问题:
+为什么要搞这么多层?还在继续研究</p>
+
+<p>另外, jvm7之后, 有许多performance优化的点. 也可以继续学习</p>
+
+<h2 id="section-2">参考文献</h2>
+<ol>
+  <li>http://docs.oracle.com/javase/7/docs/technotes/guides/vm/performance-enhancements-7.html</li>
+  <li>http://www.slideshare.net/maddocig/tiered</li>
+  <li>http://book.51cto.com/art/201504/472757.htm</li>
+  <li>http://middlewaresnippets.blogspot.hk/2014/11/java-virtual-machine-code-generation.html (待看)</li>
+</ol>
+
+
+
+                <hr>
+
+                
+
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/03/16/cms-gc/" data-toggle="tooltip" data-placement="top" title="cms gc日志分析">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/03/30/CodeCache/" data-toggle="tooltip" data-placement="top" title="CodeCache引发的一个问题">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+
+                
+
+                
+
+            </div>
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#日记" title="日记" rel="2">
+                                    日记
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="3">
+                                    生活
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#读书笔记" title="读书笔记" rel="4">
+                                    读书笔记
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="4">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#技术" title="技术" rel="14">
+                                    技术
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#JAVA" title="JAVA" rel="7">
+                                    JAVA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#投资" title="投资" rel="3">
+                                    投资
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#经济" title="经济" rel="3">
+                                    经济
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#JVM" title="JVM" rel="2">
+                                    JVM
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://huangxuan.me">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/gambolchou">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/zhou.zhenbao">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gambol">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Gambol's Blog 2017
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+        hljs.initHighlightingOnLoad();
+    })
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

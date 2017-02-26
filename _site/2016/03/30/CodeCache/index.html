@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>CodeCache引发的一个问题 - gambol</title>
+
+    <link rel="canonical" href="http://gambol.github.io/2016/03/30/CodeCache/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Gambol's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-2016.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/post-bg-2016.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#JVM" title="JVM">JVM</a>
+                        
+                        <a class="tag" href="/tags/#技术" title="技术">技术</a>
+                        
+                        <a class="tag" href="/tags/#JAVA" title="JAVA">JAVA</a>
+                        
+                    </div>
+                    <h1>CodeCache引发的一个问题</h1>
+                    
+                    
+                    <h2 class="subheading"> JVM突然变慢了?</h2>
+                    
+                    <span class="meta">Posted by gambol on March 30, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h1 id="codecache">CodeCache引发的一个问题</h1>
+
+<hr />
+
+<h2 id="section">概要</h2>
+<p>这个文章记录了一次线上问题的查询过程, 在查询过程中, 学习CodeCache的作用. CodeCache是JIT编译生成的native code的存放空间, 他的大小很可能会影响JVM的性能.</p>
+
+<h2 id="section-1">查询问题的经过</h2>
+<p>本文是<a href="/2016/03/12/serialize-compare/">序列化工具对比</a>的后续. 问题的完整经过是</p>
+
+<ol>
+  <li>线上部署了12个tomcat 实例. 但是经常出现的一个情况是<code class="highlighter-rouge">某些</code>tomcat实例不响应新的请求. 查看catalina日志, 提示”Dubbo Threadpool Exhausted”. 其中, <code class="highlighter-rouge">某些</code>不固定, 可能是12个实例中的任何一个.</li>
+  <li>登陆’Dubbo Threadpool Exhausted’机器上查看jstack, 发现又大量线程在Jackson 进行JSON反序列化处. 机器负载非常低. JVM有频繁的cms gc(每分钟1-2次 CMS). 通过jmap dump出来的数据发现, jackson会反序列化非常大的字符串(最大的有24M). 基于2的现象, 最初怀疑是gc造成了jvm变慢.</li>
+  <li>当时出问题的机器有一个现象, 机器访问速度慢. 如果把机器摘下线, 直接调用接口,不会出现”Dubbo Threadpool Exhausted’. 把机器放上线, 再增加一点流量, 很快就能重现线程池耗尽的现象.  必须要重启, tomcat才能恢复正常. 根据这个猜测, 猜测和gc关系不是很大.</li>
+  <li>为了验证第三点的猜测, 我写了一个代码, 100并发去请求线上的接口, 很快能看见频繁的, 3-5秒钟一次的CMS GC. 但是100并发结束之后, 再用50并发去请求相同的接口, 并不会看见访问变慢的情况. 通过这个验证, 我猜想这个应该并不是因为CMS GC造成了以上的现象.</li>
+  <li>关闭了线上大量使用<code class="highlighter-rouge">Jackson进行JSON反序列化处</code>的功能, 系统再也没有出现线程池耗尽的情况. 难道真的是Jackson 的黑锅?</li>
+  <li>根据线上日志记录, 最大的json 序列化所需要的时间大概是60S左右. 但是我自己在本地测试时, 发现即时是30M的字符串, 所需要的反序列化时间也仅仅是1S左右. — 这个巨大的时间差是为什么呢?</li>
+  <li>在线上的各个tomcat实例里, 写了一个jsp, 用同一个简单的字符串进行反序列化.  出现过线程池耗尽的<code class="highlighter-rouge">某些</code>机器, 速度比没有出现问题的机器要慢很多(耗尽的机器, 速度大概是200ms 没有耗尽的机器, 预计是30ms) , . 重启之后, 所有的机器速度都正常(大概是20ms). —-为什么呢?</li>
+  <li>google “tomcat become slow down”, 发现有人出现了和我一样的问题. 请看这个<a href="http://stackoverflow.com/questions/14876447/what-could-cause-global-tomcat-jvm-slowdown">stackoverflow的链接</a>. 大概的意思是, 需要加上 <code class="highlighter-rouge">-XX:ReservedCodeCacheSize=256m</code>, 扩大CodeCache的Size.</li>
+  <li>在线上选了一台机器, 加上选项<code class="highlighter-rouge">-XX:ReservedCodeCacheSize=256m</code>, 灰度运行了两天, 用第七步的jsp进行验证, 发现速度很快.    今天在这台机器上打开了<code class="highlighter-rouge">Jackson进行JSON反序列化处</code>功能, 坐等灰度的结果</li>
+  <li>运行一天之后, 灰度的结果出来了, 成果不错.  现在已经在所有机器上添加了这个参数, 运行了一天后, 系统稳定.</li>
+</ol>
+
+<hr />
+
+<h2 id="codecache-">CodeCache 是什么?</h2>
+
+<p>要知道什么是Code Cache,  首先要知道什么是JIT(请参考我的上一篇文章, JIT介绍).  简单的来说, JIT是一种JVM优化技术, 将多次执行的热点JAVA代码编译成native code, 加快运行速度. JIT编译好之后的native code, 就存放在code cache里. CodeCache 也是一段内存空间.</p>
+
+<h3 id="codecache--perm">CodeCache 和 perm区有什么区别</h3>
+
+<p>CodeCache 和 Permanent Generation 都属于 non-heap memory.</p>
+
+<ol>
+  <li>perm 区存放class的信息, 静态变量, final变量, 类的方法信息等等.</li>
+  <li>CodeCache 区存放的jit编译后的native code.</li>
+</ol>
+
+<p>两段内存空间是分开的.
+<img src="http://static.zybuluo.com/gambol/kf0qnqmh6vttmofkq1onyf0e/jvm-memory-segments1.jpg" alt="JVM memory structure" /></p>
+
+<h3 id="codecache-1">CodeCache满了会做什么?</h3>
+<p>随着系统运行, 越来越多的代码会被识别成<strong>热点</strong>代码, 存放在CodeCache里.  如果CodeCache空间不够, 则会出现”Code Cache满”的情况</p>
+
+<h4 id="code-cache">如何判断code cache满过?</h4>
+
+<ul>
+  <li>tomcat可能会打印出一段日志
+有些JDK7的版本, 可能并不一定会打印这个信息(我们使用的JDK7U45就没有这条日志)</li>
+</ul>
+
+<blockquote>
+  <p>Java HotSpot(TM) 64-Bit Server VM warning: CodeCache is full. Compiler has been disabled.</p>
+</blockquote>
+
+<ul>
+  <li>PrintSafepointStatistics
+在JVM启动参数里加上 -XX:+PrintSafepointStatistics. 能看到以下的日志</li>
+</ul>
+
+<blockquote>
+  <p>18867.232: HandleFullCodeCache              [     898          1              1    ]      [     1     0     2     0    14    ]  1</p>
+</blockquote>
+
+<p>这个说明, JVM曾经执出现过FullCodeCache的情况, 并进行HandlFullCodeCache操作.</p>
+
+<hr />
+
+<h4 id="jvmcodecache-full--jvm-">JVM收到CodeCache Full 信息之后, JVM 会做什么?</h4>
+
+<p>当CodeCache空间被用尽之后, jvm compiler就会停止, 不再继续生成native code.</p>
+
+<p>如果开启了 <em>UseCodeCacheFlushing</em> 选项,  JVM会启动code cache sweeper, 对CodeCache区进行清理工作. 具体的清理逻辑请查看<a href="http://e-collection.library.ethz.ch/eserv/eth:8304/eth-8304-01.pdf">Code Cache Optimizations for Dynamically Compiled Languages</a>的第2.3.6节.</p>
+
+<p>在直到CodeCache的剩余空间达到 <em>CodeCacheMinimumFreeSpace</em> (默认是500k) 之前, JVM在会一直关闭JIT的编译功能.</p>
+
+<p>JDK6里的<em>UseCodeCacheFlushing</em> 默认为false, 在JDK7U4之后, <em>UseCodeCacheFlushing</em>默认是true. 也就是说:</p>
+
+<ul>
+  <li>在JDK6里, 如果code cache满了, <strong>默认情况下</strong>, JVM就一直保留已经编译后的native code, 并且关闭JIT功能,不再进行新的compilation.</li>
+  <li>在JDK7U4之后, 先关闭JIT, 然后对code cache清理.</li>
+</ul>
+
+<p>但是, JDK7之后, 关于CodeCache有几个BUG</p>
+
+<ol>
+  <li>即使code cache清理的很彻底了, 但是JVM仍然不会重新开启JIT功能</li>
+  <li>对code cache的清理工作也能占用大量的cpu资源, 并减慢整个JVM的工作效率</li>
+</ol>
+
+<p>这是一个已知的bug,  <a href="http://bugs.java.com/bugdatabase/view_bug.do?bug_id=8006952">JDK-8006952 : CodeCacheFlushing degenerates VM with excessive codecache freelist iteration</a>. bug描述的现象和我们遇到的现象基本相同.</p>
+
+<p>还有一些其他的相关BUG列举如下:</p>
+
+<ol>
+  <li><a href="http://bugs.java.com/bugdatabase/view_bug.do?bug_id=8012547">JDK-8012547 : Code cache flushing can get stuck without completing reclamation of memory</a></li>
+  <li><a href="http://bugs.java.com/bugdatabase/view_bug.do?bug_id=8029091">JDK-8029091 : Bug in calculation of code cache sweeping interval</a></li>
+</ol>
+
+<p>以上的这些bug在JDK8U33之后, 基本上得到了修复.</p>
+
+<h3 id="codecache-2">CodeCache的相关配置</h3>
+
+<p>默认情况下, CodeCache 的大小如下:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>JVM</th>
+      <th>默认的Code cache size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>32 bit client, JDK8</td>
+      <td>32M</td>
+    </tr>
+    <tr>
+      <td>32-bit server with Tiered Compilation, Java 8</td>
+      <td>240M</td>
+    </tr>
+    <tr>
+      <td>64-bit server with Tiered Compilation, Java 8</td>
+      <td>240M</td>
+    </tr>
+    <tr>
+      <td>32-bit client, Java 7</td>
+      <td>32M</td>
+    </tr>
+    <tr>
+      <td>64-bit server, Java 7</td>
+      <td>48M</td>
+    </tr>
+    <tr>
+      <td>64-bit server with Tiered Compilation, Java 7</td>
+      <td>96M</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>我们线上使用的是<em>64-bit server with Tiered Compilation</em>, code cache大小为96M.</p>
+</blockquote>
+
+<p>我们可以用<code class="highlighter-rouge">-XX:ReservedCodeCacheSize=XXX</code> 对Code Cache进行配置. 除此之外, 还有许多有用的配置</p>
+
+<ol>
+  <li>-XX:ReservedCodeCacheSize=size
+ 设置的CodeCache最大可用空间. 在JDK8里, 也可以使用 <code class="highlighter-rouge">-Xmaxjitcodesize=size</code></li>
+  <li>-XX:CodeCacheMinimumFreeSpace=size
+最小需要预留给compiler使用的code cache 大小</li>
+  <li>-XX:InitialCodeCacheSize=size
+看名字就知道意思了. 初始化CodeCache大小</li>
+  <li>-XX:+UseCodeCacheFlushing  或者 -XX:-UseCodeCacheFlushing
+是否开启code cache 清理的功能. JDK7之后,默认都是true</li>
+  <li>-XX:+PrintFlagsFinal<br />
+在JVM启动时, 打印出所有的JVM相关参数.</li>
+</ol>
+
+<p>对于我们线上遇到的这个问题来说, <code class="highlighter-rouge">增大ReservedCodeCacheSize空间</code> 或者 <code class="highlighter-rouge">关闭UseCodeCacheFlushing功能</code>, 都能绕过JDK7的上述的BUG.</p>
+
+<h3 id="codecache-3">CodeCache的查看</h3>
+<p>在JDK7里, 对于CodeCache的查看以及管理做的不好(活该有bug), 基本上没有提供查看这部分内存使用情况的参数.JDK8里, 可以使用 PrintCodeCache 或者 PrintCodeCacheOnCompilation选项来查看CodeCache的具体使用信息 .</p>
+
+<p>而JDK7里, 可以用的方法包括</p>
+
+<ol>
+  <li>开启JMX之后, 使用jvisualVM 或者 jconsole查看.</li>
+  <li>在线上写代码, 调用jvm mbean方法来查看. 可以参考https://examples.javacodegeeks.com/enterprise-java/jmx/list-all-jvm-mbeans/. (我目前还没有试过, 代码待补充)</li>
+</ol>
+
+<hr />
+
+<h2 id="section-2">总结</h2>
+
+<p>从线上这个问题的解决过程中, 我们发现, 尤其对于JDK7而言,  JVM的CodeCache是一个值得注意的问题. 如果你的tomcat突然变慢, 并且恰好你的JDK版本是JDK7, 并且恰好你还开启了Tiered compliation, 你很可能命中了JDK7的这个BUG. 解决方法是, 调大ReservedCodeCacheSize 或者 关闭UseCodeCacheFlushing功能.</p>
+
+<h2 id="section-3">参考文献</h2>
+
+<p>最后,强烈推荐这些参考文献.</p>
+
+<ol>
+  <li><a href="http://www.ibm.com/developerworks/library/j-jtp12214/">Dynamic deoptimization 的介绍</a></li>
+  <li>http://stackoverflow.com/questions/20522870/about-the-dynamic-de-optimization-of-hotspot</li>
+  <li><a href="https://www.safaribooksonline.com/library/view/java-performance-the/9781449363512/ch04.html">JVM调优</a></li>
+  <li><a href="http://e-collection.library.ethz.ch/eserv/eth:8304/eth-8304-01.pdf">code cache详细介绍</a></li>
+  <li><a href="https://blogs.oracle.com/poonam/entry/why_do_i_get_message">code cache full的解法</a></li>
+  <li><a href="http://stackoverflow.com/questions/14876447/what-could-cause-global-tomcat-jvm-slowdown">为什么tomcat慢了呢?</a></li>
+  <li><a href="http://ggkekas.tumblr.com/">JVM7的bug描述</a></li>
+  <li><a href="https://docs.oracle.com/javase/8/embedded/develop-apps-platforms/codecache.htm">Codecache 调优</a></li>
+</ol>
+
+
+
+                <hr>
+
+                
+
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/03/27/JIT/" data-toggle="tooltip" data-placement="top" title="JIT">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/04/17/houseSeeker-Chongwen/" data-toggle="tooltip" data-placement="top" title="崇文区看房记录">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+
+                
+
+                
+
+            </div>
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#日记" title="日记" rel="2">
+                                    日记
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="3">
+                                    生活
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#读书笔记" title="读书笔记" rel="4">
+                                    读书笔记
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="4">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#技术" title="技术" rel="14">
+                                    技术
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#JAVA" title="JAVA" rel="7">
+                                    JAVA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#投资" title="投资" rel="3">
+                                    投资
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#经济" title="经济" rel="3">
+                                    经济
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#JVM" title="JVM" rel="2">
+                                    JVM
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://huangxuan.me">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/gambolchou">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/zhou.zhenbao">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gambol">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Gambol's Blog 2017
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+        hljs.initHighlightingOnLoad();
+    })
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

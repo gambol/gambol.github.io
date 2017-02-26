@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>JAVA编程指导 - gambol</title>
+
+    <link rel="canonical" href="http://gambol.github.io/2015/08/09/codeguide/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Gambol's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-2015.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#读书笔记" title="读书笔记">读书笔记</a>
+                        
+                    </div>
+                    <h1>JAVA编程指导</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by gambol on August 9, 2015</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h1 id="java">java编程指导</h1>
+
+<hr />
+
+<p>这篇文章是从twitter的编程指导翻译过来的。(<a href="https://github.com/twitter/commons/blob/master/src/java/com/twitter/common/styleguide.md">原文地址</a>)</p>
+
+<p>[TOC]</p>
+
+<h2 id="section">代码风格</h2>
+
+<h3 id="section-1">格式化</h3>
+
+<h4 id="section-2">什么时候应该换行？</h4>
+
+<p>有两个理由:</p>
+
+<ol>
+  <li>
+    <p>超过了每行的最大长路</p>
+  </li>
+  <li>
+    <p>你需要用换行来表示你的想法的停顿</p>
+  </li>
+</ol>
+
+<p>写代码就像写文章，要用代码来完整表达你的意思。</p>
+
+<h4 id="section-3">缩进</h4>
+
+<p>我们使用1BTS (<a href="http://en.wikipedia.org/wiki/Indent_style#Variant:_1TBS">1TBS</a>)原则，缩进2个空格。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// 好的示范.
+if (x &lt; 0) {
+  negative(x);
+} else {
+  nonnegative(x);
+}
+
+// 不好的示范.
+if (x &lt; 0)
+  negative(x);
+
+// 也不要这样.
+if (x &lt; 0) negative(x);
+</code></pre>
+</div>
+
+<p>连续的缩进是4个空格，字符串每一行用4个空格连续。 譬如</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// 不好的示范
+//   - 每一层随意换行.
+//   - 信息非常难以找到.
+throw new IllegalStateException("Failed to process request" + request.getId()
+    + " for user " + user.getId() + " query: '" + query.getText()
+    + "'");
+
+// 好的示范.
+//   - 代码自解释.
+//   - 添加代码也比较容易.
+throw new IllegalStateException("Failed to process"
+    + " request " + request.getId()
+    + " for user " + user.getId()
+    + " query: '" + query.getText() + "'");
+</code></pre>
+</div>
+
+<p>如果方法名字较长时，如何声明呢？</p>
+
+   	 :::java
+<div class="highlighter-rouge"><pre class="highlight"><code>// 随意摆放各个变量.不在乎每一行的字母数量
+String downloadAnInternet(Internet internet, Tubes tubes,
+    Blogosphere blogs, Amount&lt;Long, Data&gt; bandwidth) {
+  tubes.download(internet);
+  ...
+}
+
+// 可以接受的.
+String downloadAnInternet(Internet internet, Tubes tubes, Blogosphere blogs,
+    Amount&lt;Long, Data&gt; bandwidth) {
+  tubes.download(internet);
+  ...
+}
+
+// 好一点, 在声明和代码之间有空格分开.
+String downloadAnInternet(Internet internet, Tubes tubes, Blogosphere blogs,
+    Amount&lt;Long, Data&gt; bandwidth) {
+
+  tubes.download(internet);
+  ...
+}
+
+// 也不错,不过如果变量名过长，很容易看不到括号
+public String downloadAnInternet(Internet internet,
+                                 Tubes tubes,
+                                 Blogosphere blogs,
+                                 Amount&lt;Long, Data&gt; bandwidth) {
+  tubes.download(internet);
+  ...
+}
+
+// 最推荐的方式，声明和变量分开，有空格区分.
+public String downloadAnInternet(
+    Internet internet,
+    Tubes tubes,
+    Blogosphere blogs,
+    Amount&lt;Long, Data&gt; bandwidth) {
+
+  tubes.download(internet);
+  ...
+}
+</code></pre>
+</div>
+
+<h5 id="section-4">链式函数调用</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// 不好.
+//   - 代码不讲究.
+Iterable&lt;Module&gt; modules = ImmutableList.&lt;Module&gt;builder().add(new LifecycleModule())
+    .add(new AppLauncherModule()).addAll(application.getModules()).build();
+
+// 好一点.
+//   - 每一层逻辑是分开的.
+//   - 不过，点号和方法调用没有放在一起
+Iterable&lt;Module&gt; modules = ImmutableList.&lt;Module&gt;builder().
+    add(new LifecycleModule()).
+    add(new AppLauncherModule()).
+    addAll(application.getModules()).
+    build();
+
+// Good.
+//   - 每一行都是一个完整的逻辑.
+//   - 清楚知道每一行代码的调用.
+Iterable&lt;Module&gt; modules = ImmutableList.&lt;Module&gt;builder()
+    .add(new LifecycleModule())
+    .add(new AppLauncherModule())
+    .addAll(application.getModules())
+    .build();
+</code></pre>
+</div>
+
+<h4 id="tab">不用tab</h4>
+
+<p>tab 在每个IDE里表现不一样。不要用tab做分割哦</p>
+
+<h4 id="section-5">结尾不要无谓的空格</h4>
+
+<h3 id="section-6">变量，类的名字和方法名字</h3>
+
+<h5 id="section-7">修饰符的顺序</h5>
+
+<p>参考 <a href="http://docs.oracle.com/javase/specs/">Java Language Specification</a> <a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-8.html#jls-8.1.1">8.1.1</a>,<a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-8.html#jls-8.3.1">8.3.1</a> 和<a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-8.html#jls-8.4.3">8.4.3</a>).</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// 不好的顺序.
+final volatile private String value;
+
+// 好的顺序.
+private final volatile String value;
+</code></pre>
+</div>
+
+<h3 id="section-8">变量命名</h3>
+
+<h4 id="section-9">不要用超短的变量名</h4>
+
+<h4 id="section-10">如果需要，变量名里要包含单位</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// 差的.
+long pollInterval;
+int fileSize;
+
+// 好的.
+long pollIntervalMs;
+int fileSizeGb.
+
+// 更好的.
+//   - Unit is built in to the type.
+//   - The field is easily adaptable between units, readability is high.
+Amount&lt;Long, Time&gt; pollInterval;
+Amount&lt;Integer, Data&gt; fileSize;
+</code></pre>
+</div>
+
+<h4 id="metadata">不要再变量里增加源信息(metadata)</h4>
+
+<p>变量名应该是说明这个变量干嘛的，不要再变量名里添加额外的信息，譬如变量范围或者变量类型。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// 不好的. 
+// - 因为他包含了使用场景和类型
+Map&lt;Integer, User&gt; idToUserMap;
+String valueString;
+
+// 好.
+Map&lt;Integer, User&gt; usersById;
+String value;
+</code></pre>
+</div>
+
+<p>也不要在变量里包含变量的作用域。建议如果比较复杂，就把他分成多个函数的部分。 （注：怎么这么严格）</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// Bad.
+String _value;
+String mValue;
+
+// Good.
+String value;
+</code></pre>
+</div>
+
+<h3 id="section-11">操作符之间要留有空格</h3>
+
+<h3 id="section-12">如果复杂的操作符之间，记得用括号表示优先级</h3>
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// 不好.
+return a &lt;&lt; 8 * n + 1 | 0xFF;
+
+// 好.
+return (a &lt;&lt; (8 * n) + 1) | 0xFF;
+</code></pre>
+</div>
+
+<p>操作顺序写的越明确越好
+    :::java
+    if ((values != null) &amp;&amp; (10 &gt; values.size())) {
+      …
+    }</p>
+
+<h3 id="section-13">文档</h3>
+
+<p>如果代码想要被用的次数多，好文档必不可少</p>
+
+<h4 id="section-14">明确写出完整的注释。不要只说半句话</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// Bad.
+/**
+ * 这是一个关于cache的类。他能做缓存
+ */
+class Cache {
+  ...
+}
+
+// Good.
+/**
+ * A volatile storage for objects based on a key, which may be invalidated and discarded.  （注：不好翻译）
+ */
+class Cache {
+  ...
+}
+</code></pre>
+</div>
+
+<h4 id="section-15">如何为类写注释</h4>
+
+<p>类的注释的目的是消灭掉你API里可能不好表达的概念性问题，帮助别人快速而又<em>准确</em>的使用你的API。 好的类文档通常包含一句话概括，如果有必要的话，也可以详细展开。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+/**
+ * RPC里类似于tee的类，能保证每一个RPC的输入，在RPC call返回之前，输出到tee的两端
+ *
+ * @param &lt;T&gt; The type of the tee'd service.
+ */
+public class RpcTee&lt;T&gt; {
+  ...
+}
+</code></pre>
+</div>
+
+<h4 id="section-16">如何为方法写注释</h4>
+<p>方法注释应该告诉别人，这个方法是干什么的. 根据方法输入的类型，有时候需要详细描述函数的输入</p>
+
+<p>:::java
+    // 不好.
+    //   - 说了和没有说一样
+    /**
+     * Splits a string.
+     *
+     * @param s A string.
+     * @return A list of strings.
+     */
+    List<string> split(String s);</string></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>// 好一些.
+//   - 能知道这个函数是干嘛的
+//   - 但是仍然有一些不确定的点.
+/**
+ * 根据空格分隔字符串.
+ *
+ * @param s 被分隔的字符串.   {@code null} null串和空串相同的处理逻辑.
+ * @return 用空格分隔的字符串形成的list.
+ */
+List&lt;String&gt; split(String s);
+
+// 棒.
+//   -  包含了每一个边界条件.
+/**
+ * 根据空格分隔字符串.  重复空格会被当做一个空格.
+ *
+ * @param s 被分隔的字符串.   {@code null} null串和空串相同的处理逻辑.
+ * @return 用空格分隔的字符串形成的list.
+ */
+List&lt;String&gt; split(String s);
+</code></pre>
+</div>
+
+<h4 id="section-17">专业点</h4>
+<p>不要在注释里写幼稚的话~</p>
+
+<h4 id="override">不要重复写override里已经写过的话</h4>
+<p>如果接口里已经描述了这个内容，那么，如果你Overrider这个方法，应该新增一些额外的说明</p>
+
+<h4 id="javadoc">使用javadoc的特性</h4>
+
+<h5 id="author">不要用author这个标签</h5>
+<p>commit记录比author标签更靠谱</p>
+
+<h3 id="import">Import</h3>
+
+<h4 id="import-1">Import的顺序</h4>
+
+<p>先应用高级别的package，用空行分隔。 static的import放在最后</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+import java.*
+import javax.*
+
+import scala.*
+
+import com.*
+
+import net.*
+
+import org.*
+
+import com.twitter.*
+
+import static *
+</code></pre>
+</div>
+
+<h4 id="section-18">不要用用星号引用</h4>
+
+<p>星号会造成大家看不到引用的来源
+    :::java
+    // Bad.
+    //   - Foo 是从哪里来的呢?
+    import com.twitter.baz.foo.<em>;
+    import com.twitter.</em>;</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>interface Bar extends Foo {
+  ...
+}
+
+// Good.
+import com.twitter.baz.foo.BazFoo;
+import com.twitter.Foo;
+
+interface Bar extends Foo {
+  ...
+}
+</code></pre>
+</div>
+
+<h3 id="section-19">聪明的使用注解</h3>
+
+<h4 id="nullable">@Nullable</h4>
+<p>通常来说，默认每个变量都不能是null的。如果允许返回或者输入null，请用这个注解来显示标明</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+class Database {
+  @Nullable private Connection connection;
+
+  @Nullable
+  Connection getConnection() {
+    return connection;
+  }
+
+  void setConnection(@Nullable Connection connection) {
+    this.connection = connection;
+  }
+}
+</code></pre>
+</div>
+
+<h4 id="visiblefortesting">@VisibleForTesting</h4>
+
+<h3 id="interface">使用接口(interface)</h3>
+<p>接口将实现和声明分离，是一个很好的编程习惯。提供接口出去，然后隐藏你的实现</p>
+
+<p>如果接口数目过多，可以考虑下面的风格</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+interface FileFetcher {
+  File getFile(String name);
+
+  // 既使用了interface的优点，又不会造成类膨胀
+  // 如果某个interface只有一个实现时，可以考虑这种方法
+  static class HdfsFileFetcher implements FileFetcher {
+    @Override File getFile(String name) {
+      ...
+    }
+  }
+}
+</code></pre>
+</div>
+
+<h4 id="interface-1">考虑使用现有的interface</h4>
+<p>有时候，使用现有的接口可以让你的类更加容易被人使用。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// 没有过多的考虑。如果别人想用Blobs，还需要写胶水代码(glue code)
+class Blobs {
+  byte[] nextBlob() {
+    ...
+  }
+}
+
+// Much better.  
+// 调用者可以用标准的collection函数来声明，也可以做类似于filtering这种复杂的操作
+class Blobs implements Iterable&lt;byte[]&gt; {
+  @Override
+  Iterator&lt;byte[]&gt; iterator() {
+    ...
+  }
+}
+</code></pre>
+</div>
+
+<p>注意：  不要在已经正常工作的接口上扩展接口哦。</p>
+
+<h2 id="section-20">最佳实践</h2>
+
+<h3 id="section-21">防御式编程</h3>
+
+<h4 id="assert">不要用assert</h4>
+<p>assert可以在执行时被关闭。推荐使用guava的preconditions</p>
+
+<h4 id="preconditions">Preconditions</h4>
+<p>按照常规来说，公共(public)方法或者构造函数，都需要检查输入是否为null（除非显示标明这个输入可以是nullable)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// Bad.
+//   - 如果callback为null，或者file为null，我们会很晚才发现这个异常
+class AsyncFileReader {
+  void readLater(File file, Closure&lt;String&gt; callback) {
+    scheduledExecutor.schedule(new Runnable() {
+      @Override public void run() {
+        callback.execute(readSync(file));
+      }
+    }, 1L, TimeUnit.HOURS);
+  }
+}
+
+// Good.
+class AsyncFileReader {
+  void readLater(File file, Closure&lt;String&gt; callback) {
+    checkNotNull(file);
+    checkArgument(file.exists() &amp;&amp; file.canRead(), "File must exist and be readable.");
+    checkNotNull(callback);
+
+    scheduledExecutor.schedule(new Runnable() {
+      @Override public void run() {
+        callback.execute(readSync(file));
+      }
+    }, 1L, TimeUnit.HOURS);
+  }
+}
+</code></pre>
+</div>
+
+<h4 id="section-22">最小化代码的可见性</h4>
+<p>只把想让别人使用的接口或者变量暴露出去。如果你想写一个线程安全的代码，这一点尤其重要。</p>
+
+<h4 id="imutable">善用imutable</h4>
+<p>Mutable的变量经常会给你带来负担，你需要小心你传给别人的mutable对象是不是被人修改了。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// Bad.
+//   - 所有人可以修改生日
+//   - 调用getAttributes，就可以获得底层的map，就可以任意修改.
+public class User {
+  public Date birthday;
+  private final Map&lt;String, String&gt; attributes = Maps.newHashMap();
+
+  ...
+
+  public Map&lt;String, String&gt; getAttributes() {
+    return attributes;
+  }
+}
+
+// Good.
+public class User {
+  private final Date birthday;
+  private final Map&lt;String, String&gt; attributes = Maps.newHashMap();
+
+  ...
+
+  public Map&lt;String, String&gt; getAttributes() {
+    return ImmutableMap.copyOf(attributes);
+  }
+
+  // 如果你觉得别人不需要知道所有的map里的信息，那么你就可以考虑单独返回一些对象.
+  @Nullable
+  public String getAttribute(String attributeName) {
+    return attributes.get(attributeName);
+  }
+}
+</code></pre>
+</div>
+
+<h4 id="null">小心null</h4>
+<p>最好是使用<code class="highlighter-rouge">Optional</code>, 不太推荐使用null</p>
+
+<h4 id="try-catchfinally">try catch之后，记得finally</h4>
+
+<h3 id="clean-code">Clean code</h3>
+<p>#### 不要让人误导
+如果是Long型，那么就写成100L,而不是100l。</p>
+
+<h4 id="dead-">移除dead 代码</h4>
+
+<h4 id="general">使用更加general的类型</h4>
+<p>声明变量或者函数时， 更可能声明更general的类型。可以避免在你接口里暴露细节</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// Bad.
+//   - Implementations of Database must match the ArrayList return type.
+//   - Changing return type to Set&lt;User&gt; or List&lt;User&gt; could break implementations and users.
+interface Database {
+  ArrayList&lt;User&gt; fetchUsers(String query);
+}
+
+// Good.
+//   - Iterable defines the minimal functionality required of the return.
+interface Database {
+  Iterable&lt;User&gt; fetchUsers(String query);
+}
+</code></pre>
+</div>
+
+<h4 id="section-23">避免类型转换</h4>
+<p>类型转换(typecasting)是poor代码的表现。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>::: java
+// Bad
+Person person = (Person)boy;
+</code></pre>
+</div>
+
+<h4 id="final">多使用final的变量</h4>
+
+<h4 id="section-24">异常处理</h4>
+<p>##### 只捕获应该捕获的异常
+不要一次捕获所有的异常。这是偷懒</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// Bad.
+//   - If a RuntimeException happens, the program continues rather than aborting.
+try {
+  storage.insertUser(user);
+} catch (Exception e) {
+  LOG.error("Failed to insert user.");
+}
+
+try {
+  storage.insertUser(user);
+} catch (StorageException e) {
+  LOG.error("Failed to insert user.");
+}
+</code></pre>
+</div>
+
+<h5 id="section-25">不要吞掉异常</h5>
+<p>绝不要catch里，什么都不处理。</p>
+
+<h5 id="when-interrupted-reset-thread-interrupted-state">When interrupted, reset thread interrupted state</h5>
+<p>有一些block的操作时，会抛出InterruptedException。 如果你接收到InterruptedException，最佳实践是保留线程的interrupted state</p>
+
+<p>IBM有一篇关于这个很好的<a href="http://www.ibm.com/developerworks/java/library/j-jtp05236/index.html">文章</a></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// Bad.
+//   - 周围或者高层级的代码不知道这个线程被中断了
+try {
+  lock.tryLock(1L, TimeUnit.SECONDS)
+} catch (InterruptedException e) {
+  LOG.info("Interrupted while doing x");
+}
+
+// Good.
+//   -  保留线程的中断状态
+try {
+  lock.tryLock(1L, TimeUnit.SECONDS)
+} catch (InterruptedException e) {
+  LOG.info("Interrupted while doing x");
+  Thread.currentThread().interrupt();
+}
+</code></pre>
+</div>
+
+<h5 id="section-26">抛出合适的异常</h5>
+<p>让你的API用户捕获异常，而不要只是抛出最高级别的Exception。
+即使你调用的代码里，抛出的异常是Exception，你也需要注意不要让这个Exception到过于上层。你要努力让你的调用者不需要太关心你的异常</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// Bad.
+//   - 抛出一个Exception，让别人很难受
+interface DataStore {
+  String fetchValue(String key) throws Exception;
+}
+
+// Better.
+//   - 让上层知道了你的具体实现细节.
+interface DataStore {
+  String fetchValue(String key) throws SQLException, UnknownHostException;
+}
+
+// Good.
+//   - 封装了你的实现.
+//   - 不需要让别人针对你的异常做不同的处理
+interface DataStore {
+  String fetchValue(String key) throws StorageException;
+
+  static class StorageException extends Exception {
+    ...
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="api">使用新的api和新的库</h3>
+
+<h4 id="stringbuilder--stringbuffer">用StringBuilder 代替 StringBuffer</h4>
+<p><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/StringBuffer.html">StringBuffer</a> is 线程安全的,但是很多时候不需要线程安全</p>
+
+<h4 id="scheduledexecutorservice--timer">使用ScheduledExecutorService ，而不用 Timer</h4>
+<p>参考<java concurrency="" in="" practice="">  和stackoverflow上的这个
+[问题](http://stackoverflow.com/questions/409932/java-timer-vs-executorservice)).</java></p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">Timer</code> 只有一个线程，如果有个任务执行时间太长，就会影响下面的线程执行</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">ScheduledThreadPoolExecutor</code> 可以配置成多个线程和一个<code class="highlighter-rouge">ThreadFactory</code>.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">TimerTask</code> 的异常会杀掉这个线程, 这样<code class="highlighter-rouge">Timer</code> 就挂了。</p>
+  </li>
+  <li>
+    <p>ThreadPoolExecutor 还提供 <code class="highlighter-rouge">afterExceute</code>方法，可以让你方便的处理定时任务的结果.</p>
+  </li>
+</ul>
+
+<h4 id="list--vector">用List ，不用 Vector</h4>
+<p><code class="highlighter-rouge">Vector</code> 是同步的。你一般也用不到. 如果要用同步的集合,jdk7里也有很多 <a href="http://docs.oracle.com/javase/7/docs/api/java/util/Collections.html#synchronizedList(java.util.List)">替代品</a></p>
+
+<h3 id="equals-and-hashcode">equals() and hashCode()</h3>
+<p>如果你覆盖了某个类里equals() and hashCode()中一个方法，那么不要忘了覆盖另外一个
+<em>equals/hashCode 相关文献参考
+<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#hashCode()">contract</a></em></p>
+
+<p><a href="http://docs.guava-libraries.googlecode.com/git-history/v11.0.2/javadoc/com/google/common/base/Objects.html#equal(java.lang.Object, java.lang.Object)">Objects.equal()</a>
+and
+<a href="http://docs.guava-libraries.googlecode.com/git-history/v11.0.2/javadoc/com/google/common/base/Objects.html#hashCode(java.lang.Object...)">Objects.hashCode()</a></p>
+
+<h3 id="section-27">不要过早优化</h3>
+<p>参考Donald Knuth 关于<a href="http://c2.com/cgi/wiki?PrematureOptimization">过早优化</a> 的意见</p>
+
+<p>通常情况下，最好的办法是先上一个性能不一定那么好的版本，除非你有强烈的预感，必须要做这个优化。</p>
+
+<h3 id="todos">关于TODOs</h3>
+
+<h4 id="todo">尽早写todo</h4>
+<p>TODO不是一个坏习惯。留下TODO可以告诉别人这里有什么问题，你当时是怎么考虑的。</p>
+
+<h4 id="todo-1">每个TODO都要留下相关人的名字</h4>
+<p>如果没有名字，估计这个TODO永远不会再DO了</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// Bad.
+//   - TODO 没有留下名字.
+// TODO: Implement request backoff.
+
+// Good.
+// TODO(George Washington): Implement request backoff.
+</code></pre>
+</div>
+
+<h4 id="todos-1">领养 TODOs</h4>
+<p>如果TODO的owner已经离开这个公司/项目啦， 或者如果你已经根据TODO做了一些修改，那么这个TODO就归你啦。</p>
+
+<h3 id="httpenwikipediaorgwikilawofdemeter">遵守迪米特法则(<a href="http://en.wikipedia.org/wiki/Law_of_Demeter">迪米特法则</a>)</h3>
+<p>迪米特法则又叫最少知道原则，就是说一个对象应当对其他对象有尽可能少的了解。</p>
+
+<h4 id="section-28">在类里面</h4>
+<p>只关心你要的东西，不要牵扯太多。核心点是，推迟代码层面的实现，只要能满足你要求的最少的接口。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// Bad.
+//   - Weigher要了hosts 和 port，但是这两个参数只用来传递给别的service.
+class Weigher {
+  private final double defaultInitialRate;
+
+  Weigher(Iterable&lt;String&gt; hosts, int port, double defaultInitialRate) {
+    this.defaultInitialRate = validateRate(defaultInitialRate);
+    this.weightingService = createWeightingServiceClient(hosts, port);
+  }
+}
+
+// Good.
+class Weigher {
+  private final double defaultInitialRate;
+
+  Weigher(WeightingService weightingService, double defaultInitialRate) {
+    this.defaultInitialRate = validateRate(defaultInitialRate);
+    this.weightingService = checkNotNull(weightingService);
+  }
+}
+</code></pre>
+</div>
+
+<p>（注：不知道这句话怎么翻译，大概意思是说，好的构造函数可以使用工厂方法或者builder，但是传递一个底层的service进去，更加有利于你做单元测试，如果代码发生变更，也可以做到对你透明）
+If you want to provide a convenience constructor, a factory method or an external factory
+in the form of a builder you still can, but by making the fundamental constructor of a
+Weigher only take the things it actually uses it becomes easier to unit-test and adapt as
+the system involves.</p>
+
+<h4 id="section-29">方法</h4>
+<p>如果一个方法有多个块，可以考虑把他们抽取出来，让每个块只做一件事情。这么做的好处是，可以让人看到你的代码时，更像是在读一篇文章。抽取出来的块也更加适合人类阅读。
+下面这个是一个很典型的坏代码</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+void calculate(Subject subject) {
+  double weight;
+  if (useWeightingService(subject)) {
+    try {
+      weight = weightingService.weight(subject.id);
+    } catch (RemoteException e) {
+      throw new LayerSpecificException("Failed to look up weight for " + subject, e)
+    }
+  } else {
+    weight = defaultInitialRate * (1 + onlineLearnedBoost);
+  }
+
+  // Use weight here for further calculations
+}
+</code></pre>
+</div>
+
+<p>推荐写法是:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+void calculate(Subject subject) {
+  double weight = calculateWeight(subject);
+
+  // Use weight here for further calculations
+}
+
+private double calculateWeight(Subject subject) throws LayerSpecificException {
+  if (useWeightingService(subject)) {
+    return fetchSubjectWeight(subject.id)
+  } else {
+    return currentDefaultRate();
+  }
+}
+
+private double fetchSubjectWeight(long subjectId) {
+  try {
+    return weightingService.weight(subjectId);
+  } catch (RemoteException e) {
+    throw new LayerSpecificException("Failed to look up weight for " + subject, e)
+  }
+}
+
+private double currentDefaultRate() {
+  defaultInitialRate * (1 + onlineLearnedBoost);
+}
+</code></pre>
+</div>
+
+<p>看你代码的人，可以很清楚的看到你是怎么计算重量的。如果他想要看具体实现，代码往下拖就行啦</p>
+
+<h3 id="dryhttpenwikipediaorgwikidontrepeatyourself">不要重复自己 (<a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY</a>)</h3>
+<p>写代码的一个重要原则是，不要重复自己。可以参考这个
+<a href="http://c2.com/cgi/wiki?DontRepeatYourself">文章</a>.</p>
+
+<h4 id="section-30">如果这个常量是有意义的，一定要提取出来</h4>
+
+<h4 id="section-31">重复的代码，要提取出来</h4>
+
+<h3 id="section-32">管理好你的线程</h3>
+<p>开启一个新线程时，需要特别关心这个线程的生命周期。自己要熟悉守护线程(daemon thread)和 非守护线程的区别（可以参考这篇文章 <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html">Thread</a>。
+如果不了解这些概念，可能会让你的代码在shutdown时被hang住。</p>
+
+<p>当正在运行的线程都是守护线程时，Java 虚拟机退出。
+必须在启动线程前调用，调用setDaemon方法，将线程置为守护线程</p>
+
+<p>Shutting down <a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a> 是一个有点tricky的过程。如果你用非守护线程管理executor service，那么你至少需要遵守这种方法。（注：ExecutorService关闭时，先调用shutdown()，不再接受所有新的任务，然后调用shutdownNow（）来去掉还遗留的任务)</p>
+
+<p>如果你想vm在shutdown 时，自动给你进行清理工作，可以考虑调用<a href="https://github.com/twitter/commons/blob/master/src/java/com/twitter/common/application/ShutdownRegistry.java">ShutdownRegistry</a>进行注册.</p>
+
+<h3 id="section-33">删掉没用的代码</h3>
+<p>#### 删掉完全没用的临时变量</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// Bad.
+List&lt;String&gt; strings = fetchStrings();
+return strings;
+
+// Good.
+return fetchStrings();
+</code></pre>
+</div>
+
+<h4 id="section-34">删掉没意义的赋值</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+// Bad.
+//   - 这个null从来没有用过.
+String value = null;
+try {
+  value = "The value is " + parse(foo);
+} catch (BadException e) {
+  throw new IllegalStateException(e);
+}
+
+// Good
+String value;
+try {
+  value = "The value is " + parse(foo);
+} catch (BadException e) {
+  throw new IllegalStateException(e);
+}
+</code></pre>
+</div>
+
+<h3 id="fast--optimized">不要用fast 或者 optimized作为命名</h3>
+<p>你的API里的fast 或者 optimized 只能迷惑人，不能起到任何作用
+Don’t bewilder your API users with a ‘fast’ or ‘optimized’ implementation of a method.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:::java
+int fastAdd(Iterable&lt;Integer&gt; ints);
+
+// 有fastAdd啦，还用add干嘛。。
+int add(Iterable&lt;Integer&gt; ints);
+</code></pre>
+</div>
+
+
+
+                <hr>
+
+                
+
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2015/07/09/judgement/" data-toggle="tooltip" data-placement="top" title="决策与判断 读书笔记">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2015/09/10/distribution-locker/" data-toggle="tooltip" data-placement="top" title="分布式锁的实现">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+
+                
+
+                
+
+            </div>
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#日记" title="日记" rel="2">
+                                    日记
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="3">
+                                    生活
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#读书笔记" title="读书笔记" rel="4">
+                                    读书笔记
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="4">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#技术" title="技术" rel="14">
+                                    技术
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#JAVA" title="JAVA" rel="7">
+                                    JAVA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#投资" title="投资" rel="3">
+                                    投资
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#经济" title="经济" rel="3">
+                                    经济
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#JVM" title="JVM" rel="2">
+                                    JVM
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://huangxuan.me">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/gambolchou">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/zhou.zhenbao">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gambol">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Gambol's Blog 2017
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+        hljs.initHighlightingOnLoad();
+    })
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

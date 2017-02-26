@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>IB账户信息介绍 - gambol</title>
+
+    <link rel="canonical" href="http://gambol.github.io/2016/06/10/write-code/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Gambol's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-2016.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/post-bg-2016.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#IB" title="IB">IB</a>
+                        
+                        <a class="tag" href="/tags/#经济" title="经济">经济</a>
+                        
+                    </div>
+                    <h1>IB账户信息介绍</h1>
+                    
+                    
+                    <h2 class="subheading"> "仔细介绍account window里的信息"</h2>
+                    
+                    <span class="meta">Posted by gambol on June 10, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h2 id="section">起因</h2>
+
+<p>ib的个人账户信息实在太复杂了, 一直都迷迷糊糊的. 这次认真学习一下</p>
+
+<h2 id="section-1">看图说话</h2>
+
+<p>这是我的账户截图
+<img src="http://static.zybuluo.com/gambol/cbzln0w2zds2wsf8jx0ounpc/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-06-10%20%E4%B8%8B%E5%8D%889.35.55.png" alt="账户图" /></p>
+
+<p>具体解释请看下表</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>行</th>
+      <th>中文翻译</th>
+      <th>计算公式</th>
+      <th>注释</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Net liquidation Value</td>
+      <td>净清算值</td>
+      <td>总现金值+股票值+证券期权值+债 券值+基金值</td>
+      <td>账户的总价值 . 等于你的证券总价值 + 现金额</td>
+    </tr>
+    <tr>
+      <td>Equity with Load Value</td>
+      <td>含借贷值股权</td>
+      <td>现金账户: 结算的现金。 保证金账户: 全部现金值+股票值+ 债券值+基金值+欧洲&amp;亚洲期权 值。</td>
+      <td>一直以为, 这个值和 net liquidation value是相同的</td>
+    </tr>
+    <tr>
+      <td>Current initial Margin</td>
+      <td>当前初始保证金</td>
+      <td>所有股票的初始保证金之和</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Current Maintenance Margin</td>
+      <td>当前维持保证金</td>
+      <td>维持这个比例, 你所需要的最低保证金数量</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Current Available Funds</td>
+      <td>当前可用金额</td>
+      <td>含借贷值股权-初始保证金</td>
+      <td>这个值,就是你可以提现的值</td>
+    </tr>
+    <tr>
+      <td>Current Excess Liquidity</td>
+      <td>当前剩余流动性</td>
+      <td>含贷款值股权-维持保证金</td>
+      <td>剩余流动性是整个表里最重要的指标. 剩余流动性小于0时, IB会平仓你的部分头寸. 买入股票,或者股价下跌, 剩余流动性都会减少</td>
+    </tr>
+    <tr>
+      <td>Buying power</td>
+      <td>购买力</td>
+      <td>现金账户: 净清算值 -初始保证金.  标准保证金账户:(净清算值 -初始保证金) * (杠杆倍数, 通常为4)</td>
+      <td>这个值告诉你,你还有多少钱可以操作</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="section-2">进一步说明结算公式</h2>
+
+<ol>
+  <li>保证金要求. 保证金要求 = 证券总价值 * 0.25.  但是对于reg t margin账户来说, 有一部分股票要求的是100%的保证金, 譬如ctrp. 这些股票的列表请看<a href="https://www.ibkr.com.cn/en/index.php?key=&amp;cntry=usa&amp;tag=United+States&amp;ib_entity=hk&amp;ln=&amp;f=5168&amp;ns=T">列表</a></li>
+  <li>触发自动平仓的计算公式.  股票的亏损值 = （总资产-保证金要求）/（1-保证金比例）</li>
+</ol>
+
+<h2 id="section-3">举例说明</h2>
+
+<p>假设, 自有资金10000美金，买入baba200股，股价100美金，初始保证金比例25%。（启动2倍杠杆）</p>
+
+<blockquote>
+
+  <ol>
+    <li>证券总价值：100*200=20000美金</li>
+    <li>现金额=-10000美金</li>
+    <li>总资产=证券总价值+现金额=20000-10000 =10000美金</li>
+    <li>保证金要求=20000*25%=5000</li>
+    <li>购买力=（10000-5000）*4=20000</li>
+    <li>日内风控值=总资产-保证金要求=10000-5000=5000</li>
+    <li>触发平仓的亏损额=总资产-保证金要求/1-25% =10000-5000/1-25%=6666</li>
+    <li>6666美金/200股=33.33，则股价下跌33.33（股价为66.67）时被强制平仓</li>
+  </ol>
+
+</blockquote>
+
+<h2 id="section-4">参考文献</h2>
+<ol>
+  <li><a href="https://www.interactivebrokers.com/en/software/tws/usersguidebook/realtimeactivitymonitoring/available_for_trading.htm#XREF_98990_Available_for">IB官方说明</a></li>
+  <li><a href="http://blog.sina.com.cn/s/blog_48fa17ad0102xjtq.html">sina博客</a></li>
+  <li><a href="https://xueqiu.com/4586203773/30860827">IB账户介绍–from 雪球</a></li>
+</ol>
+
+
+                <hr>
+
+                
+
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/05/02/architecture/" data-toggle="tooltip" data-placement="top" title="如何做好架构">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/06/10/ib-account/" data-toggle="tooltip" data-placement="top" title="IB账户信息介绍">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+
+                
+
+                
+
+            </div>
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#日记" title="日记" rel="2">
+                                    日记
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="2">
+                                    生活
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#读书笔记" title="读书笔记" rel="4">
+                                    读书笔记
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="3">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#技术" title="技术" rel="12">
+                                    技术
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#JAVA" title="JAVA" rel="5">
+                                    JAVA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#投资" title="投资" rel="2">
+                                    投资
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#经济" title="经济" rel="4">
+                                    经济
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#JVM" title="JVM" rel="2">
+                                    JVM
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#IB" title="IB" rel="2">
+                                    IB
+                                </a>
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://huangxuan.me">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/gambolchou">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/zhou.zhenbao">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gambol">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Gambol's Blog 2016
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+        hljs.initHighlightingOnLoad();
+    })
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

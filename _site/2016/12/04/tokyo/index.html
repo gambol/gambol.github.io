@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>东京城市群的崛起 - gambol</title>
+
+    <link rel="canonical" href="http://gambol.github.io/2016/12/04/tokyo/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Gambol's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-2016.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/post-bg-2016.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#人口" title="人口">人口</a>
+                        
+                        <a class="tag" href="/tags/#政策" title="政策">政策</a>
+                        
+                    </div>
+                    <h1>东京城市群的崛起</h1>
+                    
+                    
+                    <h2 class="subheading"> 机遇与发展的读书笔记</h2>
+                    
+                    <span class="meta">Posted by gambol on December 4, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h1 id="section">东京城市群的崛起</h1>
+
+<h2 id="section-1">东京简介</h2>
+<p>东京(城市)目前人口约1300w, 行政面积为 2000 平方公里.
+东京首都圈: 以东京市区为中心，半径80公里以内，东京都、崎玉县、千叶县、神奈川县共同组成了东京都市圈。东京都市圈总面积1万3千4百平方公里，占全国面积的3.5%；人口约达4000多万人，占全国人口的三分之一以上；GDP占到日本全国的一半.</p>
+
+<p>对比而言, 北京辖区面积1.68万平方公里，人口2115万人。北京五环以内核心圈，面积667平方公里，人口约1000万人，北京六环内面积2247平方公里，不到30公里的半径内，人口约1477万人。以50公里为半径，面积约8000平方公里，人口约2500万人。</p>
+
+<h2 id="section-2">问题</h2>
+
+<h3 id="section-3">东京是什么背景下开始发展的?</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>时期</th>
+      <th>年代</th>
+      <th>开始时人口数量</th>
+      <th>结束时人口数量</th>
+      <th>人口增长比例</th>
+      <th>主要的时代特征</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>明治时代</td>
+      <td>1905-&gt;1925</td>
+      <td>2.5M</td>
+      <td>4.5M</td>
+      <td>80%</td>
+      <td>明治维新,日本开始发展.</td>
+      <td>东京中心城出现了学徒,小买卖的雇佣需求. 增加了就业机会,也促进了农村劳动力的发展</td>
+    </tr>
+    <tr>
+      <td>大正,昭和</td>
+      <td>1925-&gt;1947</td>
+      <td>4.5M</td>
+      <td>5M</td>
+      <td>10%</td>
+      <td>一战, 二战</td>
+      <td>由于战争的关系, 东京人口出现外迁</td>
+    </tr>
+    <tr>
+      <td>二战后复兴</td>
+      <td>1947-&gt;1965</td>
+      <td>5M</td>
+      <td>11M</td>
+      <td>120%</td>
+      <td>日本二战后复兴.</td>
+      <td>首先(到1955年)是战争期间疏散的人群, 重新聚集回市中心. 1955年后, 市中心的聚集速度减慢, 主要向周边10-30公里的郊区聚集</td>
+    </tr>
+    <tr>
+      <td>高速发展期</td>
+      <td>1965-&gt;1985</td>
+      <td>11M</td>
+      <td>12M</td>
+      <td>10%</td>
+      <td>日本经济的黄金发展期</td>
+      <td>中心城区人口减少, 周边30-50公里的郊区人口快速增长</td>
+    </tr>
+    <tr>
+      <td>泡沫期</td>
+      <td>1985-&gt;2000</td>
+      <td>12M</td>
+      <td>12M</td>
+      <td>0</td>
+      <td>经济出现泡沫</td>
+      <td>刺破泡沫后, 东京的人口也没有显著的增长</td>
+    </tr>
+    <tr>
+      <td>经济复苏</td>
+      <td>2000 -&gt;2010</td>
+      <td>12M</td>
+      <td>13M</td>
+      <td>8%</td>
+      <td>经济出现复苏迹象</td>
+      <td>中心人口重现增长. 主要原因是中心房价降低, 住宅供应量大量增加</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>两次大的增长为:
+1. 明治时代. (1905 -&gt; 1925) 人口从250w增长到450w.
+2. 二战重建 (1947-&gt;1965) 人口从500w增长到1100w.</p>
+
+<p>这两次大的增长的特诊都基本相同: 城市发展, 需要年轻的劳动人口.
+另外,东京在这段期间, 都建造了许多的铁路, 也促进了人口的涌入.</p>
+
+<h3 id="section-4">东京如何从一个大型城市, 发展成了一个巨大型的都市圈?</h3>
+<p>东京在人口集聚的过程中,由于经济发展水平落后，城市公共服务供给能力严重不足，低收入和贫困人口的大量涌入，导致城市贫困问题十分突出，环境和公共卫生条件恶化，住房短缺等城市病大量出现。</p>
+
+<h4 id="section-5">政策方面</h4>
+<p>1958年时, 日本中央政府制定了针对东京都市圈发展的地方性规划<首都圈整备计划>, 该计划限制建成区的蔓延时开发和在生活基础设备落后情况下的人口和产业聚集.</首都圈整备计划></p>
+
+<p>在此之后,日本先后4次重新规划了周边新城的<首都圈规划建设>,</首都圈规划建设></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>次数</th>
+      <th>时间</th>
+      <th>背景</th>
+      <th>范围</th>
+      <th>方针</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>1958</td>
+      <td>东京人口过于集中</td>
+      <td>东京周边100公里</td>
+      <td>建设城市绿带, 新的城市建设要以东京卫星城或工业城市的形式开发, 满足吸收人口的需求</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1968</td>
+      <td>社会环境发生改变, 影响了第一次的计划</td>
+      <td>东京, 千叶,神奈川等8县</td>
+      <td>加强周围卫星城市的规划, 设定周边50公里范围为近郊建设区域(不再使用绿带这个名词)</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>1976</td>
+      <td>石油危机</td>
+      <td>东京周边8县</td>
+      <td>促进周边城市的商务,教育和文化功能的建设, 使周边城市成为一个独立的大都市</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>1986</td>
+      <td>信息化, 高龄化</td>
+      <td>周边8县</td>
+      <td>强化中心区的国际金融职能 和 管理职能.</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>1999</td>
+      <td>首都圈金融成熟阶段</td>
+      <td>周边8县</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>目前, 东京都市圈的主要分工为
+<img src="http://img3.jiemian.com/jiemian/original/20161115/147917462293205600_a580xH.jpg" alt="东京都市圈分工" /></p>
+
+<h4 id="section-6">实际阶段</h4>
+<p>日本的都市圈形成过程中, 主要分成以下几个阶段</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>时间</th>
+      <th>背景</th>
+      <th>人口变化</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>城市化(1955-1965)</td>
+      <td>东京,名古屋等,利用港口优势, 发展制造业.</td>
+      <td>与工业化伴随的年轻劳动力、尤其是蓝领工人流入, 中心人口城市发展.</td>
+    </tr>
+    <tr>
+      <td>第一次郊区化(1965-1985).</td>
+      <td>工厂迁向郊区, 中心城市的流通和管理功能发展，白领人口增加</td>
+      <td>新流入的人口在郊区寻找住所, 中心城区租房子的年轻家庭,为养育孩子而迁移至郊区</td>
+    </tr>
+    <tr>
+      <td>第二次郊区化 (1985-2000)</td>
+      <td>泡沫经济, 地价高涨.城市中心区域再开发</td>
+      <td>原来住在中心城市的人,也向郊区迁移</td>
+    </tr>
+    <tr>
+      <td>再城市化 (2000-至今)</td>
+      <td>地价下降,中心区住宅增加</td>
+      <td>人群重新回到市中心</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>总结如下, 都市圈的形成分成3个期
+1. 人口激增期。一般为城市化初期，人口从周边地域流向中心城市，使中心城市人口猛增。
+2. 人口增长减缓期，一般为城市郊区化时期。由于工业转移和城市扩展，中心城区地价上涨，使人口从中心城区向城市边缘区迁移。
+3.  人口增长再回归期，相对应的是城市再开发期。</p>
+
+<h3 id="section-7">发展过程中, 主要遇到了哪些问题? 如何解决的?</h3>
+
+<h4 id="section-8">交通问题</h4>
+<p>1980s时, 东京的主要交通方式是自用车出行. 造成了一系列的问题(环境, 拥堵等等). 为了解决这个问题, 东京主要做了几件事情
+1.  提升公共交通服务质量. 票价优惠
+2.  改善末段交通, 鼓励自行车为主的近距离出行(ofo正在做的事情?)
+3.  围绕车站进行商业中心建设, 在地铁站周围建设有生活功能的住宅区
+4.  限行机动车辆. (征收更高的税费, 市中心高停车费)
+5.  补贴公交建设</p>
+
+<h4 id="section-9">城市容积率问题</h4>
+<p>政府控制每个区域的容积率</p>
+
+<h3 id="section-10">老龄化的过程中, 东京做了哪些事情?</h3>
+<p>暂时跳过</p>
+
+<h2 id="section-11">我的思考</h2>
+
+<h3 id="section-12">北京需要类似于东京都市圈吗?</h3>
+<p>必然需要.</p>
+
+<p>一方面, 政策层面.
+1958年日本政府的<首都圈规划建设>的同时, 日本在1960年时,也提出过副中心建设的策略. 与此相对应的, 中国政府也与2015年左右, 提出了京津冀一体化与通州副中心建设.
+二者的时代背景和方针非常类似.
+第二方面, 经济层面.
+巨大城市的出现, 是符合经济发展的特征. 资源依赖于人口, 反过来,人也会向资源聚集.  工业化路径使得产业多集中在大城市以发挥城市的规模效益。当城市形成巨大的规模效益时，会持续产生虹吸效应.</首都圈规划建设></p>
+
+<h3 id="section-13">北京目前处于哪个阶段?</h3>
+<p>如果按照都市圈的3个阶段划分(人口激增期, 增长减缓期, 增长再回归期), 我觉得北京属于 激增期的末期. 原因有几个
+1. 政府明确控制北京人口的增长. 整治服务业人群
+2. 郊区化初现端倪. 房山, 燕郊聚集的人口越来越多</p>
+
+<p>然而, 如果真是京津冀一体化, 现在河北的城镇化水平太低, 人口预计短期还是会涌入北京.</p>
+
+<h3 id="section-14">郊区化的过程中, 哪些城市有机会</h3>
+<p>结合东京的发展过程, 一个靠谱的新城, 至少有以下要求
+1. 离北京近. 东京辐射的区域大概是 30-50km. (大概说一个概念, 如果假设五环为东京的中心区, 南五环到天津的距离约是130km, 北京到通州距离10km, 东五环到燕郊25km)
+2. 适宜的房价. (多少算低? )
+3. 交通便宜&amp;便捷. 从东京的发展来看, 新城的建设主要是围绕低价的城际轨道交通展开的. (注意,不是高铁和高速, 因为高铁和高速价格较高). 30公里大概是城郊轨道一个小时的时间.
+4. 舒适的居住体验, 以及相对较完整的配套设施.</p>
+
+<h3 id="section-15">在这个过程中, 还有哪些行业会有机会?</h3>
+<ol>
+  <li>基础设施行业. (大量新城的崛起, 需要配套的基础设施)</li>
+  <li>交通</li>
+  <li>从北京往外迁的行业</li>
+  <li>房地产投资 (如果能在政策刚出来时, 敏锐的抓住新城的建设机会, 相信会有较高的回报率)</li>
+</ol>
+
+<h2 id="section-16">参考文献</h2>
+<ol>
+  <li><a href="https://item.jd.com/1750867996.html">机遇与谋划</a></li>
+  <li><a href="http://star.news.sohu.com/20161106/n472410757.shtml">梁建章 : 控制人口规模不是好事</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E4%B8%9C%E4%BA%AC">wiki 东京</a></li>
+  <li><a href="http://www.jiemian.com/article/958563.html">都市圈的形成</a></li>
+  <li><a href="http://www.ccud.org.cn/2014-07-11/114328859.html">还有多远</a></li>
+</ol>
+
+
+                <hr>
+
+                
+
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/07/10/gold/" data-toggle="tooltip" data-placement="top" title="黄金投资,买什么">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/02/24/huaqing/" data-toggle="tooltip" data-placement="top" title="华清嘉园看房笔记">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+
+                
+
+                
+
+            </div>
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#日记" title="日记" rel="2">
+                                    日记
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="3">
+                                    生活
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#读书笔记" title="读书笔记" rel="4">
+                                    读书笔记
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="4">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#技术" title="技术" rel="14">
+                                    技术
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#JAVA" title="JAVA" rel="7">
+                                    JAVA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#投资" title="投资" rel="3">
+                                    投资
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#经济" title="经济" rel="3">
+                                    经济
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#JVM" title="JVM" rel="2">
+                                    JVM
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://huangxuan.me">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/gambolchou">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/zhou.zhenbao">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gambol">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Gambol's Blog 2017
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+        hljs.initHighlightingOnLoad();
+    })
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

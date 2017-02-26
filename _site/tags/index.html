@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>Tags - gambol</title>
+
+    <link rel="canonical" href="http://gambol.github.io/tags/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Gambol's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/tag-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading" id="tag-heading">
+                    <h1>Tags</h1>
+                    <span class="subheading">keep moving</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+			<!-- <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/post-bg-ufo.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>Gambol's Blog</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">记录真实的gambol</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- Post Container -->
+    		<div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+    			
+<div class="post-preview">
+    <a href="/2017/02/24/huaqing/">
+        <h2 class="post-title">
+            华清嘉园看房笔记
+        </h2>
+        
+        <h3 class="post-subtitle">
+            五道口是宇宙中心
+        </h3>
+        
+        <div class="post-content-preview">
+            华清嘉园看房笔记
+
+
+
+背景
+我一直有学区房的需求. 之前一直看东城/西城的房子, 前些天在smth上看到大家讨论华清嘉园, 于是我去查了一下华清嘉园的价格.  在我记忆中,华清嘉园是一个神盘, 13年时小户型的价格就到了10w左右, 大户型也需要8w.  但是我这次看的时候, 发现华清嘉园的2居室价格在10w-11w左右, 
+在这种情况下, 我觉得华清嘉园可能会补涨, 于是我去看了一次房....
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by gambol on February 24, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2016/12/04/tokyo/">
+        <h2 class="post-title">
+            东京城市群的崛起
+        </h2>
+        
+        <h3 class="post-subtitle">
+             机遇与发展的读书笔记
+        </h3>
+        
+        <div class="post-content-preview">
+            东京城市群的崛起
+
+东京简介
+东京(城市)目前人口约1300w, 行政面积为 2000 平方公里.
+东京首都圈: 以东京市区为中心，半径80公里以内，东京都、崎玉县、千叶县、神奈川县共同组成了东京都市圈。东京都市圈总面积1万3千4百平方公里，占全国面积的3.5%；人口约达4000多万人，占全国人口的三分之一以上；GDP占到日本全国的一半.
+
+对比而言, 北京辖区面积1.68万平方公里，人口2...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by gambol on December 4, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2016/07/10/gold/">
+        <h2 class="post-title">
+            黄金投资,买什么
+        </h2>
+        
+        <h3 class="post-subtitle">
+            美股黄金购买的方案
+        </h3>
+        
+        <div class="post-content-preview">
+            前言
+
+在ABX 13块钱, 黄金价格大概是$1200 的时候, 我写了一个笔记, 说应该中长期看好黄金. 现在ABX已经到了$23, 黄金价格到了1335, 我突然醒悟过来, 现在也需要配置一部分黄金用来投资 &amp; 避险.
+
+至于为什么要买黄金, 前面有笔记说了. 简单的来说, 逻辑是
+1. 货币超发严重
+2. 避险情绪强烈
+3. 黄金被低估
+
+
+
+黄金投资的种类
+
+我适合投资的资产...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by gambol on July 10, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2016/06/20/spring-no-app/">
+        <h2 class="post-title">
+            Spring "no matching editors or conversion strategy found"的问题解决 以及 Spring AOP代理的介绍
+        </h2>
+        
+        <h3 class="post-subtitle">
+            解决问题引发出来的思考
+        </h3>
+        
+        <div class="post-content-preview">
+            问题
+昨天晚上,在线上调试时, 发现在一个spring的bean里, 只要加上@Transactional注解后, 就会在spring启动时报错
+
+报错信息有点多, 需要注意的点只有一点
+
+Cannot convert value of type [com.sun.proxy.$Proxy21 implementing gambol.examples.spring.service.Conso...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by gambol on June 20, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2016/06/10/ib-account/">
+        <h2 class="post-title">
+            IB账户信息介绍
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "仔细介绍account window里的信息"
+        </h3>
+        
+        <div class="post-content-preview">
+            起因
+
+ib的个人账户信息实在太复杂了, 一直都迷迷糊糊的. 这次认真学习一下
+
+看图说话
+
+这是我的账户截图
+
+
+具体解释请看下表
+
+
+  
+    
+      行
+      中文翻译
+      计算公式
+      注释
+    
+  
+  
+    
+      Net liquidation Value
+      净清算值
+      总现金值+股票值+证券期权值+债 券值+...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by gambol on June 10, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2016/06/09/write-code/">
+        <h2 class="post-title">
+            如何写代码
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "写代码三部曲"
+        </h3>
+        
+        <div class="post-content-preview">
+            起因
+
+本来是要做一个ppt介绍的. 写了ppt, 放在博客上做个纪念吧.
+
+请 下载 PDF.
+
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by gambol on June 9, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2016/05/02/architecture/">
+        <h2 class="post-title">
+            如何做好架构
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "架构类文章小抄"
+        </h3>
+        
+        <div class="post-content-preview">
+            
+
+写在前面的话
+记录看到不错的架构文章.加上自己的思考. 不定期更新.
+现在包含了两篇文章
+
+
+  软件设计杂谈
+  Martin Fowler阐述“牺牲的架构”
+
+
+软件设计杂谈
+
+url:   https://zhuanlan.zhihu.com/p/20005177
+这篇文章很赞, 里面的许多观点我非常赞同.
+
+前提
+
+  搞懂需求. 分析需求, 弄清楚需求的底层原因和想要解决的问题...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by gambol on May 2, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2016/04/17/houseSeeker-Chongwen/">
+        <h2 class="post-title">
+            崇文区看房记录
+        </h2>
+        
+        <h3 class="post-subtitle">
+            崇文房子实体考察
+        </h3>
+        
+        <div class="post-content-preview">
+            前言
+这些看房日志都发表于私人微信公众号“笔筒看房日志”上.
+
+背景
+学区房需求，从来没看过东西城的房子，从稍微便宜的东城入手。先考察了老东城，把老东城各个学区的90年之后的房子都列出来了，发现老东城的新房子实在太少（00年之后的）；从而，把目标转向老崇文的东花市-崇文门-前门学区；
+
+要求
+
+  对房子要求: 不要回迁；新，不要老破小；两居，三居更好；
+  小学 : 崇文小学，培新小学，回...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by gambol on April 17, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2016/03/30/CodeCache/">
+        <h2 class="post-title">
+            CodeCache引发的一个问题
+        </h2>
+        
+        <h3 class="post-subtitle">
+             JVM突然变慢了?
+        </h3>
+        
+        <div class="post-content-preview">
+            CodeCache引发的一个问题
+
+
+
+概要
+这个文章记录了一次线上问题的查询过程, 在查询过程中, 学习CodeCache的作用. CodeCache是JIT编译生成的native code的存放空间, 他的大小很可能会影响JVM的性能.
+
+查询问题的经过
+本文是序列化工具对比的后续. 问题的完整经过是
+
+
+  线上部署了12个tomcat 实例. 但是经常出现的一个情况是某些tomcat...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by gambol on March 30, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2016/03/27/JIT/">
+        <h2 class="post-title">
+            JIT
+        </h2>
+        
+        <h3 class="post-subtitle">
+            JVM的优化编译器
+        </h3>
+        
+        <div class="post-content-preview">
+            ﻿#  JIT
+
+
+
+Hotspot JVM运行模式
+JVM有两种模式, -client  和 -server. 从JDK5开始, JVM会根据机器的不同来决定使用哪种模式.
+
+使用 java  -version可以看到具体所使用的模式
+
+$ java -version 
+java version "1.8.0_45"
+Java(TM) SE Runtime Environment (bui...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by gambol on March 27, 2016
+    </p>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    
+    <li class="next">
+        <a href="/page2">Older Posts &rarr;</a>
+    </li>
+    
+</ul>
+
+
+    		</div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                                <a href="/tags/#日记" title="日记" rel="2">
+                                    日记
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#生活" title="生活" rel="3">
+                                    生活
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#读书笔记" title="读书笔记" rel="4">
+                                    读书笔记
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#分布式" title="分布式" rel="4">
+                                    分布式
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#技术" title="技术" rel="14">
+                                    技术
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#JAVA" title="JAVA" rel="7">
+                                    JAVA
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#投资" title="投资" rel="3">
+                                    投资
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#经济" title="经济" rel="3">
+                                    经济
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#JVM" title="JVM" rel="2">
+                                    JVM
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="">ABOUT ME</a></h5>
+                    <div class="short-about">
+                        
+                            <img src="/img/biu.jpg" />
+                        
+                        
+                            <p>简单着想,认真落实</p>
+                        
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="http://weibo.com/gambolchou">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://www.facebook.com/zhou.zhenbao">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://github.com/gambol">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </section>
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://huangxuan.me">Hux Blog</a></li>
+                    
+                </ul>
+                
+    		</div>
+        
+	</div>
+</div>
+ -->
+            <!-- 标签云 -->
+			<div id='tag_cloud' class="tags">
+				
+				<a href="#日记" title="日记" rel="2">日记</a>
+				
+				<a href="#生活" title="生活" rel="3">生活</a>
+				
+				<a href="#读书笔记" title="读书笔记" rel="4">读书笔记</a>
+				
+				<a href="#分布式" title="分布式" rel="4">分布式</a>
+				
+				<a href="#技术" title="技术" rel="14">技术</a>
+				
+				<a href="#JAVA" title="JAVA" rel="7">JAVA</a>
+				
+				<a href="#大数据" title="大数据" rel="1">大数据</a>
+				
+				<a href="#投资" title="投资" rel="3">投资</a>
+				
+				<a href="#经济" title="经济" rel="3">经济</a>
+				
+				<a href="#乱序" title="乱序" rel="1">乱序</a>
+				
+				<a href="#网络" title="网络" rel="1">网络</a>
+				
+				<a href="#序列化" title="序列化" rel="1">序列化</a>
+				
+				<a href="#GC" title="GC" rel="1">GC</a>
+				
+				<a href="#JVM" title="JVM" rel="2">JVM</a>
+				
+				<a href="#JIT" title="JIT" rel="1">JIT</a>
+				
+				<a href="#房" title="房" rel="1">房</a>
+				
+				<a href="#代码" title="代码" rel="1">代码</a>
+				
+				<a href="#IB" title="IB" rel="1">IB</a>
+				
+				<a href="#人口" title="人口" rel="1">人口</a>
+				
+				<a href="#政策" title="政策" rel="1">政策</a>
+				
+				<a href="#看房" title="看房" rel="1">看房</a>
+				
+			</div>
+
+            <!-- 标签列表 -->
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="日记">
+                    <span class="tag-text">日记</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-04-17">2016-04-17</time>
+				  <a href="/2016/04/17/houseSeeker-Chongwen/" title="崇文区看房记录">崇文区看房记录</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/04/17/houseSeeker-Chongwen/">
+				        <h2 class="post-title">
+                            崇文区看房记录
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            崇文房子实体考察
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-04-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-01-12">2015-01-12</time>
+				  <a href="/2015/01/12/daily/" title="如何写一个好的日记">如何写一个好的日记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/01/12/daily/">
+				        <h2 class="post-title">
+                            如何写一个好的日记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             "日记的内容"
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-01-12</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="生活">
+                    <span class="tag-text">生活</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2017-02-24">2017-02-24</time>
+				  <a href="/2017/02/24/huaqing/" title="华清嘉园看房笔记">华清嘉园看房笔记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2017/02/24/huaqing/">
+				        <h2 class="post-title">
+                            华清嘉园看房笔记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            五道口是宇宙中心
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2017-02-24</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-04-17">2016-04-17</time>
+				  <a href="/2016/04/17/houseSeeker-Chongwen/" title="崇文区看房记录">崇文区看房记录</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/04/17/houseSeeker-Chongwen/">
+				        <h2 class="post-title">
+                            崇文区看房记录
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            崇文房子实体考察
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-04-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-01-12">2015-01-12</time>
+				  <a href="/2015/01/12/daily/" title="如何写一个好的日记">如何写一个好的日记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/01/12/daily/">
+				        <h2 class="post-title">
+                            如何写一个好的日记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             "日记的内容"
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-01-12</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="读书笔记">
+                    <span class="tag-text">读书笔记</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-02-28">2016-02-28</time>
+				  <a href="/2016/02/28/wireshark/" title="wireshark网络分析就这么简单读书笔记">wireshark网络分析就这么简单读书笔记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/02/28/wireshark/">
+				        <h2 class="post-title">
+                            wireshark网络分析就这么简单读书笔记
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-02-28</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-08-09">2015-08-09</time>
+				  <a href="/2015/08/09/codeguide/" title="JAVA编程指导">JAVA编程指导</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/08/09/codeguide/">
+				        <h2 class="post-title">
+                            JAVA编程指导
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-08-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-07-09">2015-07-09</time>
+				  <a href="/2015/07/09/judgement/" title="决策与判断 读书笔记">决策与判断 读书笔记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/07/09/judgement/">
+				        <h2 class="post-title">
+                            决策与判断 读书笔记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            决策的问题
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-07-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-04-06">2015-04-06</time>
+				  <a href="/2015/04/06/silcoin/" title="硅谷禁书读书笔记">硅谷禁书读书笔记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/04/06/silcoin/">
+				        <h2 class="post-title">
+                            硅谷禁书读书笔记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             "励志书"
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-04-06</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="分布式">
+                    <span class="tag-text">分布式</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-05-02">2016-05-02</time>
+				  <a href="/2016/05/02/architecture/" title="如何做好架构">如何做好架构</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/05/02/architecture/">
+				        <h2 class="post-title">
+                            如何做好架构
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             "架构类文章小抄"
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-05-02</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-02-18">2016-02-18</time>
+				  <a href="/2016/02/18/PAXOS/" title="PAXOS协议介绍">PAXOS协议介绍</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/02/18/PAXOS/">
+				        <h2 class="post-title">
+                            PAXOS协议介绍
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-02-18</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-12-06">2015-12-06</time>
+				  <a href="/2015/12/06/ceo/" title="<CEO:像企业家一样思考>读书笔记"><CEO:像企业家一样思考>读书笔记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/12/06/ceo/">
+				        <h2 class="post-title">
+                            <CEO:像企业家一样思考>读书笔记
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-12-06</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-09-10">2015-09-10</time>
+				  <a href="/2015/09/10/distribution-locker/" title="分布式锁的实现">分布式锁的实现</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/09/10/distribution-locker/">
+				        <h2 class="post-title">
+                            分布式锁的实现
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             "分布式锁"
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-09-10</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="技术">
+                    <span class="tag-text">技术</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-06-20">2016-06-20</time>
+				  <a href="/2016/06/20/spring-no-app/" title="Spring "no matching editors or conversion strategy found"的问题解决 以及 Spring AOP代理的介绍">Spring "no matching editors or conversion strategy found"的问题解决 以及 Spring AOP代理的介绍</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/06/20/spring-no-app/">
+				        <h2 class="post-title">
+                            Spring "no matching editors or conversion strategy found"的问题解决 以及 Spring AOP代理的介绍
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            解决问题引发出来的思考
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-06-20</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-05-02">2016-05-02</time>
+				  <a href="/2016/05/02/architecture/" title="如何做好架构">如何做好架构</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/05/02/architecture/">
+				        <h2 class="post-title">
+                            如何做好架构
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             "架构类文章小抄"
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-05-02</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-30">2016-03-30</time>
+				  <a href="/2016/03/30/CodeCache/" title="CodeCache引发的一个问题">CodeCache引发的一个问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/30/CodeCache/">
+				        <h2 class="post-title">
+                            CodeCache引发的一个问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             JVM突然变慢了?
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-30</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-27">2016-03-27</time>
+				  <a href="/2016/03/27/JIT/" title="JIT">JIT</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/27/JIT/">
+				        <h2 class="post-title">
+                            JIT
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            JVM的优化编译器
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-27</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-16">2016-03-16</time>
+				  <a href="/2016/03/16/cms-gc/" title="cms gc日志分析">cms gc日志分析</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/16/cms-gc/">
+				        <h2 class="post-title">
+                            cms gc日志分析
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            CMS 垃圾收集器解释
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-16</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-12">2016-03-12</time>
+				  <a href="/2016/03/12/serialize-compare/" title="序列化工具对比">序列化工具对比</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/12/serialize-compare/">
+				        <h2 class="post-title">
+                            序列化工具对比
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            比比比,不怕不识货就怕货比货
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-05">2016-03-05</time>
+				  <a href="/2016/03/05/proxy/" title="动态代理">动态代理</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/05/proxy/">
+				        <h2 class="post-title">
+                            动态代理
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            深入浅出动态代理
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-05</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-02-28">2016-02-28</time>
+				  <a href="/2016/02/28/wireshark/" title="wireshark网络分析就这么简单读书笔记">wireshark网络分析就这么简单读书笔记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/02/28/wireshark/">
+				        <h2 class="post-title">
+                            wireshark网络分析就这么简单读书笔记
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-02-28</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-02-22">2016-02-22</time>
+				  <a href="/2016/02/22/atom/" title="乱序执行">乱序执行</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/02/22/atom/">
+				        <h2 class="post-title">
+                            乱序执行
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-02-22</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-02-18">2016-02-18</time>
+				  <a href="/2016/02/18/PAXOS/" title="PAXOS协议介绍">PAXOS协议介绍</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/02/18/PAXOS/">
+				        <h2 class="post-title">
+                            PAXOS协议介绍
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-02-18</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-01-03">2016-01-03</time>
+				  <a href="/2016/01/03/traffic-control/" title="流量控制">流量控制</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/01/03/traffic-control/">
+				        <h2 class="post-title">
+                            流量控制
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            traffic的流量控制
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-01-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-12-06">2015-12-06</time>
+				  <a href="/2015/12/06/ceo/" title="<CEO:像企业家一样思考>读书笔记"><CEO:像企业家一样思考>读书笔记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/12/06/ceo/">
+				        <h2 class="post-title">
+                            <CEO:像企业家一样思考>读书笔记
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-12-06</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-09-10">2015-09-10</time>
+				  <a href="/2015/09/10/lambda/" title="JDK8 lambda表达式使用">JDK8 lambda表达式使用</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/09/10/lambda/">
+				        <h2 class="post-title">
+                            JDK8 lambda表达式使用
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             lambda是懒人的福利
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-09-10</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-09-10">2015-09-10</time>
+				  <a href="/2015/09/10/distribution-locker/" title="分布式锁的实现">分布式锁的实现</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/09/10/distribution-locker/">
+				        <h2 class="post-title">
+                            分布式锁的实现
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             "分布式锁"
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-09-10</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="JAVA">
+                    <span class="tag-text">JAVA</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-06-20">2016-06-20</time>
+				  <a href="/2016/06/20/spring-no-app/" title="Spring "no matching editors or conversion strategy found"的问题解决 以及 Spring AOP代理的介绍">Spring "no matching editors or conversion strategy found"的问题解决 以及 Spring AOP代理的介绍</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/06/20/spring-no-app/">
+				        <h2 class="post-title">
+                            Spring "no matching editors or conversion strategy found"的问题解决 以及 Spring AOP代理的介绍
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            解决问题引发出来的思考
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-06-20</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-06-09">2016-06-09</time>
+				  <a href="/2016/06/09/write-code/" title="如何写代码">如何写代码</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/06/09/write-code/">
+				        <h2 class="post-title">
+                            如何写代码
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             "写代码三部曲"
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-06-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-30">2016-03-30</time>
+				  <a href="/2016/03/30/CodeCache/" title="CodeCache引发的一个问题">CodeCache引发的一个问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/30/CodeCache/">
+				        <h2 class="post-title">
+                            CodeCache引发的一个问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             JVM突然变慢了?
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-30</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-27">2016-03-27</time>
+				  <a href="/2016/03/27/JIT/" title="JIT">JIT</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/27/JIT/">
+				        <h2 class="post-title">
+                            JIT
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            JVM的优化编译器
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-27</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-16">2016-03-16</time>
+				  <a href="/2016/03/16/cms-gc/" title="cms gc日志分析">cms gc日志分析</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/16/cms-gc/">
+				        <h2 class="post-title">
+                            cms gc日志分析
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            CMS 垃圾收集器解释
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-16</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-05">2016-03-05</time>
+				  <a href="/2016/03/05/proxy/" title="动态代理">动态代理</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/05/proxy/">
+				        <h2 class="post-title">
+                            动态代理
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            深入浅出动态代理
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-05</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-09-10">2015-09-10</time>
+				  <a href="/2015/09/10/lambda/" title="JDK8 lambda表达式使用">JDK8 lambda表达式使用</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/09/10/lambda/">
+				        <h2 class="post-title">
+                            JDK8 lambda表达式使用
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             lambda是懒人的福利
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-09-10</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="大数据">
+                    <span class="tag-text">大数据</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2015-10-01">2015-10-01</time>
+				  <a href="/2015/10/01/hive/" title="HIVE原理介绍">HIVE原理介绍</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2015/10/01/hive/">
+				        <h2 class="post-title">
+                            HIVE原理介绍
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2015-10-01</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="投资">
+                    <span class="tag-text">投资</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-07-10">2016-07-10</time>
+				  <a href="/2016/07/10/gold/" title="黄金投资,买什么">黄金投资,买什么</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/07/10/gold/">
+				        <h2 class="post-title">
+                            黄金投资,买什么
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            美股黄金购买的方案
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-07-10</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-01-29">2016-01-29</time>
+				  <a href="/2016/01/29/bitcoin/" title="比特币">比特币</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/01/29/bitcoin/">
+				        <h2 class="post-title">
+                            比特币
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-01-29</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-01-24">2016-01-24</time>
+				  <a href="/2016/01/24/oil/" title="原油投资">原油投资</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/01/24/oil/">
+				        <h2 class="post-title">
+                            原油投资
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-01-24</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="经济">
+                    <span class="tag-text">经济</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-06-10">2016-06-10</time>
+				  <a href="/2016/06/10/ib-account/" title="IB账户信息介绍">IB账户信息介绍</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/06/10/ib-account/">
+				        <h2 class="post-title">
+                            IB账户信息介绍
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             "仔细介绍account window里的信息"
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-06-10</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-01-29">2016-01-29</time>
+				  <a href="/2016/01/29/bitcoin/" title="比特币">比特币</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/01/29/bitcoin/">
+				        <h2 class="post-title">
+                            比特币
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-01-29</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-01-24">2016-01-24</time>
+				  <a href="/2016/01/24/oil/" title="原油投资">原油投资</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/01/24/oil/">
+				        <h2 class="post-title">
+                            原油投资
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-01-24</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="乱序">
+                    <span class="tag-text">乱序</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-02-22">2016-02-22</time>
+				  <a href="/2016/02/22/atom/" title="乱序执行">乱序执行</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/02/22/atom/">
+				        <h2 class="post-title">
+                            乱序执行
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-02-22</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="网络">
+                    <span class="tag-text">网络</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-02-28">2016-02-28</time>
+				  <a href="/2016/02/28/wireshark/" title="wireshark网络分析就这么简单读书笔记">wireshark网络分析就这么简单读书笔记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/02/28/wireshark/">
+				        <h2 class="post-title">
+                            wireshark网络分析就这么简单读书笔记
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-02-28</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="序列化">
+                    <span class="tag-text">序列化</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-12">2016-03-12</time>
+				  <a href="/2016/03/12/serialize-compare/" title="序列化工具对比">序列化工具对比</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/12/serialize-compare/">
+				        <h2 class="post-title">
+                            序列化工具对比
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            比比比,不怕不识货就怕货比货
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-12</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="GC">
+                    <span class="tag-text">GC</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-16">2016-03-16</time>
+				  <a href="/2016/03/16/cms-gc/" title="cms gc日志分析">cms gc日志分析</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/16/cms-gc/">
+				        <h2 class="post-title">
+                            cms gc日志分析
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            CMS 垃圾收集器解释
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-16</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="JVM">
+                    <span class="tag-text">JVM</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-30">2016-03-30</time>
+				  <a href="/2016/03/30/CodeCache/" title="CodeCache引发的一个问题">CodeCache引发的一个问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/30/CodeCache/">
+				        <h2 class="post-title">
+                            CodeCache引发的一个问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             JVM突然变慢了?
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-30</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-27">2016-03-27</time>
+				  <a href="/2016/03/27/JIT/" title="JIT">JIT</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/27/JIT/">
+				        <h2 class="post-title">
+                            JIT
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            JVM的优化编译器
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-27</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="JIT">
+                    <span class="tag-text">JIT</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-03-27">2016-03-27</time>
+				  <a href="/2016/03/27/JIT/" title="JIT">JIT</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/03/27/JIT/">
+				        <h2 class="post-title">
+                            JIT
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            JVM的优化编译器
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-03-27</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="房">
+                    <span class="tag-text">房</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-04-17">2016-04-17</time>
+				  <a href="/2016/04/17/houseSeeker-Chongwen/" title="崇文区看房记录">崇文区看房记录</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/04/17/houseSeeker-Chongwen/">
+				        <h2 class="post-title">
+                            崇文区看房记录
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            崇文房子实体考察
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-04-17</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="代码">
+                    <span class="tag-text">代码</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-06-09">2016-06-09</time>
+				  <a href="/2016/06/09/write-code/" title="如何写代码">如何写代码</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/06/09/write-code/">
+				        <h2 class="post-title">
+                            如何写代码
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             "写代码三部曲"
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-06-09</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="IB">
+                    <span class="tag-text">IB</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-06-10">2016-06-10</time>
+				  <a href="/2016/06/10/ib-account/" title="IB账户信息介绍">IB账户信息介绍</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/06/10/ib-account/">
+				        <h2 class="post-title">
+                            IB账户信息介绍
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             "仔细介绍account window里的信息"
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-06-10</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="人口">
+                    <span class="tag-text">人口</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-12-04">2016-12-04</time>
+				  <a href="/2016/12/04/tokyo/" title="东京城市群的崛起">东京城市群的崛起</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/12/04/tokyo/">
+				        <h2 class="post-title">
+                            东京城市群的崛起
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             机遇与发展的读书笔记
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-12-04</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="政策">
+                    <span class="tag-text">政策</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2016-12-04">2016-12-04</time>
+				  <a href="/2016/12/04/tokyo/" title="东京城市群的崛起">东京城市群的崛起</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2016/12/04/tokyo/">
+				        <h2 class="post-title">
+                            东京城市群的崛起
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				             机遇与发展的读书笔记
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2016-12-04</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="看房">
+                    <span class="tag-text">看房</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2017-02-24">2017-02-24</time>
+				  <a href="/2017/02/24/huaqing/" title="华清嘉园看房笔记">华清嘉园看房笔记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2017/02/24/huaqing/">
+				        <h2 class="post-title">
+                            华清嘉园看房笔记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            五道口是宇宙中心
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2017-02-24</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+
+		</div>
+	</div>
+</div>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/gambolchou">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/zhou.zhenbao">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gambol">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Gambol's Blog 2017
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+        hljs.initHighlightingOnLoad();
+    })
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
