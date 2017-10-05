@@ -5,9 +5,202 @@
     <description></description>
     <link>http://gambol.github.io/</link>
     <atom:link href="http://gambol.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 27 Feb 2017 00:24:12 +0800</pubDate>
-    <lastBuildDate>Mon, 27 Feb 2017 00:24:12 +0800</lastBuildDate>
+    <pubDate>Thu, 05 Oct 2017 22:46:09 +0800</pubDate>
+    <lastBuildDate>Thu, 05 Oct 2017 22:46:09 +0800</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
+    
+      <item>
+        <title>kafka分享</title>
+        <description>&lt;h2 id=&quot;kafka&quot;&gt;kafka分享&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;用途&lt;/h2&gt;
+&lt;p&gt;略&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;架构&lt;/h2&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;拓扑结构&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://static.zybuluo.com/gambol/w01h1ps0yp68n6dwwlap1nju/image_1br418bph3af120ipr5c6llfn9.png&quot; alt=&quot;image_1br418bph3af120ipr5c6llfn9.png-129.3kB&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;名词解释&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;producer： 消息发送方&lt;/li&gt;
+  &lt;li&gt;broker： kafka集群的服务器
+2.1 controller: 一个特殊的broker， 可以进行leader 的选举，或者failover的处理&lt;/li&gt;
+  &lt;li&gt;consumer： 消费消息的机器。&lt;/li&gt;
+  &lt;li&gt;consumer-group: 多个consumer属于同一个组。对于单条消息而言，  同一个group里，只有一台机器能收到&lt;/li&gt;
+  &lt;li&gt;topic： 发送到kafka的topic。每条消息都需要指定topic&lt;/li&gt;
+  &lt;li&gt;partition。 partition是物理上的概念， 用来持久化消息。 每个topic可以指定有几个partition。&lt;/li&gt;
+  &lt;li&gt;replica: 是一种机制，，保证partition的高可用
+7.1 leader：一个特殊replica。 producer 和 cosnumer之和leader交互
+7.2 follower: 从leader里复制数据&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;zk&quot;&gt;zk内容&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://static.zybuluo.com/gambol/olvru3lzxsq3anwhvsgkibjq/image_1br42lu46udk146p1up61f4q1cdh9.png&quot; alt=&quot;image_1br42lu46udk146p1up61f4q1cdh9.png-107.7kB&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;发消息&lt;/h2&gt;
+&lt;p&gt;一. producer &lt;code class=&quot;highlighter-rouge&quot;&gt;PUSH&lt;/code&gt; 到broker。 broker 顺序写入到对应的partition里&lt;/p&gt;
+
+&lt;p&gt;二.  partition的选择策略： 
+1. 如果api里制定了partition，则直接使用
+2. 如果没有partition，则根据key做hash，选出partition
+3. 如果没有key， 则客户端顺序选择&lt;/p&gt;
+
+&lt;p&gt;三. 时间序列
+&lt;img src=&quot;http://static.zybuluo.com/gambol/1pe480hncv1g1a6spr9lt25e/image_1br4533e9gr11p5bn3h1nbm1j4g1j.png&quot; alt=&quot;image_1br4533e9gr11p5bn3h1nbm1j4g1j.png-23.2kB&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;四. 默认
+At least once&lt;/p&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;存消息&lt;/h2&gt;
+&lt;p&gt;### 存储方式
+一个topic， 多个partition。 每个partition对应一个文件夹。
+&lt;img src=&quot;http://static.zybuluo.com/gambol/9hrej8q7yy7ywb9edhb7pcze/image_1br45ahuae9i1ig61i5tr9ntaa20.png&quot; alt=&quot;image_1br45ahuae9i1ig61i5tr9ntaa20.png-171.2kB&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://static.zybuluo.com/gambol/lj2sgs1npzgpppccjkdjs18d/image_1br6mcf41trt11t918bt1do7et2d.png&quot; alt=&quot;image_1br6mcf41trt11t918bt1do7et2d.png-19.1kB&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;section-6&quot;&gt;删除策略&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;基于时间&lt;/li&gt;
+  &lt;li&gt;基于大小&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;section-7&quot;&gt;消费消息&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;high-level&lt;/li&gt;
+  &lt;li&gt;low-level&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;high-level&quot;&gt;high-level&lt;/h3&gt;
+&lt;p&gt;high-level consumer API 提供了 consumer group 的语义，一个消息只能被 group 内的一个 consumer 所消费，且 consumer 消费消息时不关注 offset，最后一个 offset 由 zookeeper 保存。&lt;/p&gt;
+
+&lt;p&gt;kafka 的分配单位是 patition。每个 consumer 都属于一个 group，一个 partition 只能被同一个 group 内的一个 consumer 所消费（也就保障了一个消息只能被 group 内的一个 consuemr 所消费），但是多个 group 可以同时消费这个 partition。&lt;/p&gt;
+
+&lt;p&gt;消费方式： pull  — push 模式很难适应消费速率不同的消费者， 简化broker的设计。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-8&quot;&gt;讨论&lt;/h2&gt;
+&lt;p&gt;### consumer commit offset
+参考 &lt;a href=&quot;https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/clients/consumer/KafkaConsumer.html&quot;&gt;kafka文档&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;kafka在每个parttition里保存了每个consumer group最后的commit offset&lt;/p&gt;
+
+&lt;h3 id=&quot;consumer-&quot;&gt;consumer 的线程模型&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;模型一：多个Consumer且每一个Consumer有自己的线程，对应的架构图如下：&lt;/li&gt;
+  &lt;li&gt;模型二：一个Consumer且有多个Worker线程&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;名称&lt;/th&gt;
+      &lt;th&gt;优点&lt;/th&gt;
+      &lt;th&gt;缺点&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;模型1&lt;/td&gt;
+      &lt;td&gt;1.Consumer Group容易实现 2.各个Partition的顺序实现更容易&lt;/td&gt;
+      &lt;td&gt;consumer数量不能超过partition数量。 多的consumer永远用不到&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;模型2&lt;/td&gt;
+      &lt;td&gt;横向扩展方便&lt;/td&gt;
+      &lt;td&gt;多个partition上无法保证顺序处理&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;partition-consumer&quot;&gt;partition 和consumer的数量&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;如果consumer比partition多，是浪费，因为kafka的设计是在一个partition上是不允许并发的，所以consumer数不要大于partition数 。&lt;/li&gt;
+  &lt;li&gt;如果consumer比partition少，一个consumer会对应于多个partitions，这里主要合理分配consumer数和partition数，否则会导致partition里面的数据被取的不均匀 。最好partiton数目是consumer数目的整数倍，所以partition数目很重要，比如取24，就很容易设定consumer数目 。&lt;/li&gt;
+  &lt;li&gt;如果consumer从多个partition读到数据，不保证数据间的顺序性，kafka只保证在一个partition上数据是有序的，但多个partition，根据你读的顺序会有不同&lt;/li&gt;
+  &lt;li&gt;增减consumer，broker，partition会导致rebalance，所以rebalance后consumer对应的partition会发生变化&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;section-9&quot;&gt;如何自定义去消费已经消费过的数据&lt;/h3&gt;
+
+&lt;h2 id=&quot;kafka-console&quot;&gt;kafka console&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/yahoo/kafka-manager&quot;&gt;kafka manage&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-10&quot;&gt;参数说明&lt;/h2&gt;
+&lt;p&gt;英文说明看&lt;a href=&quot;http://kafka.apache.org/documentation&quot;&gt;kafka的document&lt;/a&gt;
+中文说明看&lt;a href=&quot;http://blog.csdn.net/louisliaoxh/article/details/51516084&quot;&gt;kafka配置说明&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;broker-&quot;&gt;broker 的核心配置&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;broker.id  = 0 全局唯一的id。 正数&lt;/li&gt;
+  &lt;li&gt;port=9092 broker服务的端口&lt;/li&gt;
+  &lt;li&gt;zookeeper.connect=debugo01:2181/kafka,debugo02,debugo03      Zookeeper quorum设置。如果有多个使用逗号分割&lt;/li&gt;
+  &lt;li&gt;delete.topic.enable=true 是否允许使用工具删除topic&lt;/li&gt;
+  &lt;li&gt;num.partitions=2  每个topic的默认分区个数&lt;/li&gt;
+  &lt;li&gt;auto.create.topics.enable=true  是否自动创建topic&lt;/li&gt;
+  &lt;li&gt;log.dirs=/var/log/kafka  日志存放目录，多个目录使用逗号分割&lt;/li&gt;
+  &lt;li&gt;log.flush.interval.messages=10000    当达到消息数量时，会将数据flush到日志文件中&lt;/li&gt;
+  &lt;li&gt;log.flush.interval.ms=1000   当达到下面的时间(ms)时，执行一次强制的flush操作。interval.ms和interval.messages无论哪个达到，都会flush。默认3000ms&lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;log.cleanup.policy = delete   日志清理策略（delete&lt;/td&gt;
+          &lt;td&gt;compact）&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;log.retention.hours=168  日志保存时间 (hours&lt;/td&gt;
+          &lt;td&gt;minutes)，默认为7天（168小时）。超过这个时间会根据policy处理数据。bytes和minutes无论哪个先达到都会触发。&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;log.retention.bytes=1073741824   日志数据存储的最大字节数。超过这个时间会根据policy处理数据。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;consumer&quot;&gt;consumer&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;bootstrap.servers=localhost:9092,localhost:9093 连接的broker地址  host1:port1,host2:port2,..&lt;/li&gt;
+  &lt;li&gt;heartbeat.interval.ms=3000 心跳&lt;/li&gt;
+  &lt;li&gt;enable.auto.commit=true  自动commit&lt;/li&gt;
+  &lt;li&gt;auto.commit.interval.ms=5000  自动commit的时间&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;producer&quot;&gt;producer&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;bootstrap.servers=localhost:9092,localhost:9093 连接的broker地址&lt;/li&gt;
+  &lt;li&gt;request.timeout.ms =10000  消息发送的最长等待时间&lt;/li&gt;
+  &lt;li&gt;partitioner.class=kafka.producer.DefaultPartitioner   分区的策略，默认是取模&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-11&quot;&gt;附录&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.spring.io/spring-kafka/docs/1.2.2.RELEASE/reference/htmlsingle/&quot;&gt;spring文档&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://kafka.apache.org/0110/javadoc/index.html?org/apache/kafka/clients/consumer/KafkaConsumer.html&quot;&gt;kafka-client说明&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://kafka.apache.org/documentation&quot;&gt;kafka的document&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/jun1019/p/6256514.html&quot;&gt;kafka文件存储&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+</description>
+        <pubDate>Thu, 05 Oct 2017 19:00:00 +0800</pubDate>
+        <link>http://gambol.github.io/2017/10/05/kafka/</link>
+        <guid isPermaLink="true">http://gambol.github.io/2017/10/05/kafka/</guid>
+        
+        <category>分享</category>
+        
+        <category>技术</category>
+        
+        
+      </item>
     
       <item>
         <title>华清嘉园看房笔记</title>
@@ -110,9 +303,9 @@ lj上没有户型图, 但是我想说,这个房子实在太小了. 我实际上�
 价格允许的情况下, 我还是倾向于考虑华清嘉园的2居.&lt;/p&gt;
 
 </description>
-        <pubDate>Sat, 14 Jan 2017 19:00:00 +0800</pubDate>
-        <link>http://gambol.github.io/2017/01/14/huaqing/</link>
-        <guid isPermaLink="true">http://gambol.github.io/2017/01/14/huaqing/</guid>
+        <pubDate>Sat, 25 Feb 2017 19:00:00 +0800</pubDate>
+        <link>http://gambol.github.io/2017/02/25/huaqing/</link>
+        <guid isPermaLink="true">http://gambol.github.io/2017/02/25/huaqing/</guid>
         
         <category>房</category>
         
@@ -1190,121 +1383,6 @@ when the facts change, I change my mind.&lt;/p&gt;
         <category>技术</category>
         
         <category>JAVA</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>JIT</title>
-        <description>&lt;p&gt;﻿#  JIT&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;hotspot-jvm&quot;&gt;Hotspot JVM运行模式&lt;/h2&gt;
-&lt;p&gt;JVM有两种模式, -client  和 -server. 从JDK5开始, JVM会根据机器的不同来决定使用哪种模式.&lt;/p&gt;
-
-&lt;p&gt;使用 java  -version可以看到具体所使用的模式&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ java -version 
-java version &quot;1.8.0_45&quot;
-Java(TM) SE Runtime Environment (build 1.8.0_45-b14)
-Java HotSpot(TM) 64-Bit Server VM (build 25.45-b02, mixed mode)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;在上面命令里,除了  &lt;code class=&quot;highlighter-rouge&quot;&gt;64-Bit Server&lt;/code&gt; 这个吸引我之外, 还有一个东西很有意思.  &lt;code class=&quot;highlighter-rouge&quot;&gt;mixed mode&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;这是说明, Hotspot VM在默认情况下都是采用解释器+即时编译器的&lt;code class=&quot;highlighter-rouge&quot;&gt;混合&lt;/code&gt;模式共同执行程序.  我们也可以指定不适用混合模式. 使用-Xint 和 -Xcomp即可.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[gambols-mbp15][zhenbao.zhou][~/work/java_works]
-$ java -Xcomp -version
-java version &quot;1.8.0_45&quot;
-Java(TM) SE Runtime Environment (build 1.8.0_45-b14)
-Java HotSpot(TM) 64-Bit Server VM (build 25.45-b02, compiled mode)
-
-[gambols-mbp15][zhenbao.zhou][~/work/java_works]
-$ java -Xint -version
-java version &quot;1.8.0_45&quot;
-Java(TM) SE Runtime Environment (build 1.8.0_45-b14)
-Java HotSpot(TM) 64-Bit Server VM (build 25.45-b02, interpreted mode)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;好,问题来了,解释器(Interpreter) 和 编译器 (compiled)是什么呢? 为什么需要者两个模式?&lt;/p&gt;
-
-&lt;h2 id=&quot;interpreter&quot;&gt;Interpreter解释器&lt;/h2&gt;
-&lt;p&gt;### 为什么需要解释器
-在JVM早期的发展过程时, JVM的开发人员为了实现&lt;code class=&quot;highlighter-rouge&quot;&gt;跨平台&lt;/code&gt;, 不适用传统的静态编译的方式直接生成本地机器指令，而是实现了解释器(interpreter), 在运行时采用逐行解释字节码执行程序的想法.&lt;/p&gt;
-
-&lt;h3 id=&quot;section&quot;&gt;解释器的工作原理&lt;/h3&gt;
-&lt;p&gt;在程序运行的过程中, JVM根据预定义的规范对字节码采用逐行解释的方式执行，解释器将字节码文件中的内容“翻译”为对应平台的本地机器指令执行。当一条字节码指令被解释执行完成后，接着再根据PC寄存器中记录的下一条需要被执行的字节码指令执行解释操作&lt;/p&gt;
-
-&lt;p&gt;解释器的任务就是负责将字节码指令解释为对应平台的本地机器指令执行。在HotSpot VM中，解释器主要由Interpreter模块和Code模块构成。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Interpreter模块
-这个模块模块实现了解释器的核心功能, – 解释&lt;/li&gt;
-  &lt;li&gt;Code模块
-管理JVM生成的本地机器指令.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;编译器&lt;/h2&gt;
-&lt;p&gt;明眼人预计都能看出来, 上面的解释器执行方式效率是有问题的. 因此Hotspot VM有弄了一个编译器. 通常叫做JIT编译器. Hotspot是怎么做的呢? 
-关于那些需要被编译为本地代码的字节码，也被称之为“热点代码”，JIT编译器在运行时会针对那些频繁被调用的“热点代码”做出深度优化，将其直接编译为对应平台的本地机器指令，以此提升Java程序的执行性能.&lt;/p&gt;
-
-&lt;p&gt;有哪些代码会被编译成本地机器指令呢?
-1. Invocation Counter  会记录每个方法(method)的执行次数, 当次数大于某一个值的时候, JIT就认为这是一个”热”的方法, 并且编译成本地机器指令(natvie code). 在server模式时,  这个值默认是 10000. 可以通过 -XX:CompileThreshold=10000 来调节.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Back Edge Counter 记录每个循环里代码的执行次数. 如果这个循环里的代码执行次数大鱼某一个值时, 则会把循环里的代码编译成本地机器指令, 并替换掉.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;总体来说, 可以由下面的图看出来JIT的执行
-&lt;img src=&quot;http://static.zybuluo.com/gambol/gfz5wf5ab9x7kmu2kqmz759b/wKiom1Uwk6aipaOAAACdbZhEZVo906.jpg&quot; alt=&quot;wKiom1Uwk6aipaOAAACdbZhEZVo906.jpg-39.4kB&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;jit&quot;&gt;JIT编译器的组成&lt;/h3&gt;
-&lt;p&gt;JIT编译器主要由C1模块、Opto模块和Shark模块构成。
-- C1模块实现了Client Compiler编译器
-- 而Opto模块实现了Server Compiler编译器，因此C2编译器也可以被称之为Opto编译器
-- Shark模块中则实现了一个基于LLVM的编译器&lt;/p&gt;
-
-&lt;h2 id=&quot;tiered-compilation&quot;&gt;分层编译策略(Tiered Compilation)&lt;/h2&gt;
-&lt;p&gt;默认情况下, 使用Client模式时, 我们使用的是C1编译器. 使用Server模式时, 启用了C2编译器. 
-为了加快系统的启动速度, 在JDK7之后, 在Server模式后,默认开启分层编译策略.&lt;/p&gt;
-
-&lt;p&gt;在这种模式下,我们JVM的策略如下:
-第0层. 由解释器解释代码执行, 并且解释器关闭代码优化的模块
-第1层. 由C1编译器编译成本地机器代码执行, C1编译器执行少量的字节码优化.
-第2层. C1编译器进行 invocation 和 backedge counter优化
-第3层. C1编译器编译为本地机器指令执行，采集性能数据进行优化措施 (比 第二层慢 35%)
-第4层. C2编译器进行完整的优化&lt;/p&gt;
-
-&lt;h1 id=&quot;todo&quot;&gt;TODO&lt;/h1&gt;
-&lt;p&gt;没有明白的一个问题:
-为什么要搞这么多层?还在继续研究&lt;/p&gt;
-
-&lt;p&gt;另外, jvm7之后, 有许多performance优化的点. 也可以继续学习&lt;/p&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;参考文献&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;http://docs.oracle.com/javase/7/docs/technotes/guides/vm/performance-enhancements-7.html&lt;/li&gt;
-  &lt;li&gt;http://www.slideshare.net/maddocig/tiered&lt;/li&gt;
-  &lt;li&gt;http://book.51cto.com/art/201504/472757.htm&lt;/li&gt;
-  &lt;li&gt;http://middlewaresnippets.blogspot.hk/2014/11/java-virtual-machine-code-generation.html (待看)&lt;/li&gt;
-&lt;/ol&gt;
-
-</description>
-        <pubDate>Sun, 27 Mar 2016 20:00:00 +0800</pubDate>
-        <link>http://gambol.github.io/2016/03/27/JIT/</link>
-        <guid isPermaLink="true">http://gambol.github.io/2016/03/27/JIT/</guid>
-        
-        <category>技术</category>
-        
-        <category>JAVA</category>
-        
-        <category>JVM</category>
-        
-        <category>JIT</category>
         
         
       </item>
