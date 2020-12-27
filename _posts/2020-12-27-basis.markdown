@@ -1,0 +1,90 @@
+---
+layout:     post
+title:      "basis.cash介绍"
+#subtitle:   " \"算法稳定币\""
+date:       2020-12-27 12:00:00
+author:     "gambol"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - 投资
+    - 数字货币
+---
+
+
+# basis.cash介绍
+
+## 简介
+basis.cash 的项目在https://basis.cash 网站上.
+他的目标是做一个稳定币, (和美元直接1:1挂钩). 因为btc等加密货币币价波动非常大, 所以能和现实币价绑定的稳定币, 作用非常大.  
+历史上, 从先到后一共出现过几个有代表意义的稳定币.
+1. 直接将法币代币化,   譬如USDT.  简单来说, 找一个机构, 用信用做担保, 保证每个USDT能在现实中兑换一个USD. 这个稳定币的问题是, 其实就是一个中心化的代币,  中心化机构有暴雷的风险.
+2. DAI. 利用智能合约构建的稳定币, 抵押ETH来发行DAI.  DAI的问题是, 如果ETH波动大时, 会导致ETH被清算,  进一步压低ETH的价格, 从而导致更多清算, 产生连锁效应. 
+3. AMPL, YAM这种弹性币. 这种币无需抵押品. 粗暴简单
+4. 参考了之前著名的basecoin设计, 结合流动性挖矿, 和弹性币的特性, 新形成的ESD 或者 BASIS这种算法稳定币.  
+
+第一代和代二代USDT, DAI 这两个币, 目前已经广泛使用了,  但是第三, 第四代, 还在实验之中.
+
+## BASIS CASH 基本原理
+根据上文介绍,   这个币无需资产抵押, 而是利用人们趋利的特性来实现的, 这其中存在大量的套利, 博弈等行为.  也有人说, basis cash模仿的就是中央银行是怎么工作的.
+
+Basis 协议里, 一共有3种代币, 
+1. BAC(Basis Cash) 就是稳定币, 目标价格是1美元, 
+2. BAS(Basis Share), 
+3. BAB(Basis Bond). 
+
+其中BAS 和BAB的目标, 是让BAC价格回到1美元.
+
+### BAC介绍
+
+BAC的目标是通过rebase增发, 来永远固定在1美元. 
+1. 如果BAC 价格>1.05美元时, BAC总量增加.  增加的数量= BAC当前数量* (价格-1.05).  也就是说, BAC rebase后的总量= BAC当前总量* 价格.  增加的数量分给持有BAS的人和*财库*
+2. 如果BAC 价格 <0.95 美元,  启动BAB
+
+
+### BAB介绍
+1BAB = 1BAC.
+当BAC价格低于0.95美元时, 可以开启BAC 兑换BAB的通道, BAB价格= BAC价格^2. 
+当BAC价格高于1.05美元时, 开启BAB兑换BAC的通道, 这是1BAB = 1BAC.
+
+### BAS介绍
+持有BAS 的, 可以获得通过rebase增发的BAC. 
+BAS除了购买之外, 只能通过流动性挖矿获得, 通过在uniswap上质押BAC/DAI, 和BAS/DAI, 可以得到BAS.
+
+BAS的价格波动非常大, 一天之内波动30%也是有的
+[DEXTools.io](https://www.dextools.io/app/uniswap/pair-explorer/0x0379da7a5895d13037b6937b109fa8607a659adf)
+
+![image.png](https://i.loli.net/2020/12/27/wqXdkRahOtfEKnB.png)
+
+
+### BAC价格是如何稳定在1美元的?
+1. 当BAC价格>1.05时, rebase(印钞) 增加BAC. BAC价格偏离的越多, 印钞新增的BAC就越多.  而BAC就分配给那些持有很多BAS的人.    当BAC达到平衡后, 价格自然下跌回到1美元.
+2. 当BAC价格<0.96时,  开启BAC-> BAB通道. BAC价格越低, BAB的价格就越便宜. 就有很多人想要用BAC来买BAB. 这样BAC供应减少, 价格也就上升.
+
+BAS也是能促进BAC价格合理.
+如果BAC价格越高, 就有人愿意来买BAS, 因为拿了BAS就可以分到更多的BAC. 能盈利
+同时, 因为BAS目前主要依靠流动性挖矿产生, 所以如果BAS价格增加,  就有人愿意买入BAC, 并且做流动性挖矿, 来挖BAS.
+
+BAC的合理价格是1美元, 不过因为有流动性挖矿,(目前天化利润据说能到2-3%), 所以BAC的目前价格大于1.
+
+## 为什么大家现在都在挖BAS?
+因为收益高. 买入BAC, 再用BAC/DAI做流动性挖矿, 得到BAS. 目前(2020-12-27) 在一个通胀的周期里, 挖BAS收益还比较高, BAS能值钱, 而且BAS还能每天得到BAC, 所以很多人白天做BAC-DAI的LP, 每天2%的收益, 然后在造成时成效LP, 赶在8:00之前, 用BAS投到boardroom里, 能领10%的通胀收益.
+
+[Yield Farming Tools](https://yieldfarmingtools.com/pools)
+
+![image.png](https://i.loli.net/2020/12/27/l8EDcWMO6mnI4a1.png)
+
+## 这个稳定币什么情况下会崩盘?
+崩盘主要的可能性, 是因为BAC暴跌之后, 如果大家人对于这个BAC失去信心,  不愿意用BAC来购买BAB, 就会形成死亡螺旋.
+
+![image.png](https://i.loli.net/2020/12/27/Y4TSHtUnbcgNGak.png)
+
+## 总结
+大家都说, 这个币在模仿中央银行. Basis Cash的前身是Basecoin. 18年时, basecoin由于政府的压力, 项目被迫取消. 20年时, 换了一个匿名团队, 来接着做Basis Cash, 突然就暴火.
+
+这个是一个很有意思的尝试,  没想到稳定币 + 流动性挖矿, 也能玩出花样来, 人的贪婪和博弈在这个过程中, 展现无遗.
+
+## 参考资料
+1. [算法稳定币双雄之二：Basis-PANews](https://www.panewslab.com/zh/articledetails/D75466103.html)
+2. [算法稳定币在飞，BAC挖矿年化1192%，真是印钱呢-PANews](https://www.panewslab.com/zh/articledetails/D97833958.html)
+3. [五分钟读懂算法稳定币新星 ESD 运行机制 - 链闻 ChainNews](https://www.chainnews.com/articles/194527371694.htm)
+4. [Sina Visitor System](https://weibo.com/2198020310/JA4uG7PYV#comment)
