@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "basis.cash介绍"
-#subtitle:   " \"算法稳定币\""
+subtitle:   "\"算法稳定币\""
 date:       2020-12-27 12:00:00
 author:     "gambol"
 header-img: "img/post-bg-2015.jpg"
